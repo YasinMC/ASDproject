@@ -11,13 +11,13 @@ Student number: 13564810
 
 		<label for="uname"><b>Email</b></label>
 		<input type="text" placeholder="Enter Email" name="email" required formControlName="email">
-	
+
 		<label for="psw"><b>Password</b></label>
 		<input type="password" placeholder="Enter Password" name="password" required formControlName="password">
-		
-		<label for="admin"><b>admin?</b></label>
+
+		<label for="admin"><b>Admin Privileges</b></label>
 		<input type="checkbox" formControlName="admin">
-		
+
 		<button [disabled]="!registerForm.valid" type="submit">ADD</button>
 	</div>
 	<p *ngIf="status">{{status.status}}</p>
