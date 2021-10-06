@@ -170,11 +170,12 @@ async function getAllStores() {
 async function addStore(store) {
     let client = getMongoClient();
     await connect(client);
+
     centre = store.sCentre;
     delete store.sCentre;
     const addedStore = await client.db("ASDdata").collection("SCentres").updateOne(
-        { Name: centre },
-        { $push: { Stores: store } });
+        { name: centre },
+        { $push: { stores: store } });
 
     return addedStore;
 }
@@ -196,9 +197,10 @@ async function deleteStore(store) {
 
     console.log("returned store",newStoreArr)
 
-    const fetchedIncidents = await client.db("ASDdata").collection("SCentres").updateOne(
+    const storeArr = await client.db("ASDdata").collection("SCentres").updateOne(
         {name: store.sCentre}, { $set: { stores: newStoreArr }});
-    return fetchedIncidents;
+    console.log(storeArr)
+    return storeArr;
 }
 
 //centre employee queries (admin queries)

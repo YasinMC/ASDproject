@@ -21,6 +21,7 @@ export class AccountComponent implements OnInit {
   displayPopUp1: any = "none";
   displayPopUp2: any = "none";
   displayPopUp3: any = "none";
+  
   ngOnInit(): void {
   }
 
