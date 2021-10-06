@@ -359,11 +359,11 @@ app.post('/allStores',verify, async (req,res) => {
   res.send(stores);
 })
 app.post('/addStore',verifyAdmin, async (req,res) => {
-  console.log(req.body.store);
   try {
     add = await db.addStore(req.body.store);
     console.log(add);
-    res.send({status: "added store successfully"});
+    if(add.modifiedCount == 1) res.send({status: "added store successfully"});
+    if(add.modifiedCount != 1) res.send({status: "could not add store"});
   } catch (error) {
     console.log(error);
     res.send({status: "error adding store"})
@@ -371,11 +371,9 @@ app.post('/addStore',verifyAdmin, async (req,res) => {
 })
 
 app.post('/deleteStore',verifyAdmin, async (req,res) => {
-  console.log(req.body.store);
-  console.log(req.body.store.sName[0]);
   del = await db.deleteStore(req.body.store);
-  if(del.deletedCount == 1) res.send({status: "store deleted", return: del});
-  if(del.deletedCount != 1) res.send({status: "store not deleted. Please try again"})
+  if(del.modifiedCount == 1) res.send({status: "store deleted", return: del});
+  if(del.modifiedCount != 1) res.send({status: "store not deleted. Please try again"})
   }
 )
 
