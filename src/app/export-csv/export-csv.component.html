@@ -53,62 +53,58 @@ Student number: 140574003
 
             <div class="item">
               <p>Date of complaint</p>
-              <input type="date" name="dateOfComp" required formControlName="dateOfComp">
+              <input type="date" name="dateOfComp" required formControlName="dateOfComp" disabled>
               <i class="fas fa-calendar-alt"></i>
             </div>
-
             <div class="item">
               <p>Name</p>
               <input type="text" name="fName" placeholder="First" formControlName="fName">
               <input type="text" name="lName" placeholder="Last" formControlName="lName">
             </div>
-
+    
             <div class="item">
               <p>Email</p>
               <input type="text" name="email" formControlName="email">
             </div>
-
-            <div class="item address">
-              <p>Store Address</p>
-              <div class="street">
-                <input class="street-item" type="text" name="sAddress" placeholder="Street address" formControlName="sAddress">
-                <input  class="street-item" type="text" name="sAddress2" placeholder="Street addres line 2" formControlName="sAddress2">
-                <input type="text" name="city" placeholder="City" formControlName="city">
-                <input type="text" name="region" placeholder="Region" formControlName="region">
-                <input type="text" name="pCode" placeholder="Postal / zip code" formControlName="pCode">
-
-                <select name="sLocation" formControlName="sLocation">
-                  <option value="">Store location</option>
-                  <option value="CBD Store">CBD store</option>
-                  <option value="Parramatta">Parramatta</option>
-                  <option value="Chatswood">Chatswood</option>
-                  <option value="Mascot">Mascot</option>
-                  <option value="Rose Bay">Rose bay</option>
-                </select>
-              </div>
+            <div class="item">
+              <p>Centre Name:</p>
+              <select (change)="changeCentre()" name="centreLocation" formControlName="centreLocation">
+                <option  *ngFor="let centre of centres" value="{{centre.name}}">{{centre.name}}</option>
+              </select>
             </div>
+            <div class="item">
 
+              <p>Store Name</p>
+              <select *ngIf="centrePicked" name="storeLocation" formControlName="storeLocation">
+                <option *ngFor="let store of sCentre.stores" value="{{store.sName}}">{{store.sName}}</option>
+              </select>
+
+              <select *ngIf="!centrePicked" name="storeLocation" formControlName="storeLocation">
+                <option  value="{{this.reportForm.controls.storeLocation.value}}">{{this.reportForm.controls.storeLocation.value}}</option>
+              </select>
+
+            </div>
             <div class="item">
               <p>Date of the reported incident</p>
-              <input type="date" name="date" required formControlName="date">
+              <input type="date" name="incidentDate" required formControlName="incidentDate">
               <i class="fas fa-calendar-alt"></i>
             </div>
-
+    
             <div class="item location">
               <p>Incident location</p>
-              <input type="name" name="name" formControlName="name">
+              <input type="incLocation" name="name" formControlName="incidentLocation">
             </div>
-
+    
             <div class="item complaint-details">
-              <p>Complaint details</p>
+              <p>Complaint Details</p>
               <div class="complaint-details-item">
                 <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
               </div>
             </div>
-
+    
             <div class="item desired-outcome">
-              <p>Desired outcome</p>
-
+              <p>Desired Outcome</p>
+    
               <div class="desired-outcome-item">
                 <textarea name="desiredOutcome" rows="5" formControlName="desiredOutcome"></textarea>
                 <small>By signing you declare that all information you have entered is truthful and accurate.</small>

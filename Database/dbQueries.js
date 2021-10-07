@@ -122,14 +122,23 @@ async function userIncident(account,CID){
     return fetchedIncident;
 }
 async function updateIncident(incident, update){
+    var updateIncident;
+
     //connect to db
     let client = getMongoClient();
     await connect(client);
+
     console.log(incident);
     //query DB. add incident report
-    const updateIncident = await client.db("ASDdata").collection("Complaints").updateOne(
-        { _id: ObjectId(incident._id), userId: incident.userId },
-        { $set: update });
+
+    if(!incident.userId){
+        updateIncident = await client.db("ASDdata").collection("Complaints").updateOne(
+            { _id: ObjectId(incident._id) }, { $set: update });
+    }else{
+        updateIncident = await client.db("ASDdata").collection("Complaints").updateOne(
+            { _id: ObjectId(incident._id), userId: incident.userId },
+            { $set: update });
+    }
 
     return updateIncident;
 }
