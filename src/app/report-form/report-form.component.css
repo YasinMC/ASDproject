@@ -10,6 +10,11 @@ html, body {
     color: rgb(34, 34, 34);
     line-height: 22px;
     }
+    p.status {
+        text-align: center;
+        color: red;
+        font-size: 20px;
+    }
     h1 {
     margin: 15px 0;
     font-weight: 400;

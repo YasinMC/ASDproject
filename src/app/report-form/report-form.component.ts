@@ -17,7 +17,7 @@ export class ReportFormComponent implements OnInit {
   sCentre: any;
   centreOption: any;
   centrePicked: boolean = false;
-  status: Object;
+  status: any;
 
   constructor(private cookieService: CookieService, private api:ReportFormService) { }
   reportForm = new FormGroup({

@@ -71,13 +71,19 @@ app.post('/deleteComplaint',verify, async (req, res) => {
 });
 app.post('/updateComplaint',verify, async (req, res) => {
   try {
-    update = await db.updateIncident({
-      userId: req.body.user._id,
-      _id: req.body.id
-    }, req.body.update);
-
+    if(req.body.user.admin){
+      console.log("yesyesytes" ,req.body.id);
+      update = await db.updateIncident({ _id: req.body.id }, req.body.update);
+    }else{
+      update = await db.updateIncident({
+        userId: req.body.user._id,
+        _id: req.body.id
+      }, req.body.update);
+  
+    }
     console.log(update);
-    res.send({status: "updated incident successfully"});
+    if(update.modifiedCount == 1) res.send({status: "updated incident successfully"});
+    if(update.modifiedCount != 1) res.send({status: "did not update"})
   } catch (error) {
     console.log(error);
     res.send({status: "error updating incident"})
@@ -355,7 +361,7 @@ app.post('/createOffender', async (req,res) => {
 //store admin end-points
 app.post('/allStores',verify, async (req,res) => {
   stores = await db.getAllStores();
-  console.log(stores);
+  console.log("fetching stores");
   res.send(stores);
 })
 app.post('/addStore',verifyAdmin, async (req,res) => {
@@ -381,7 +387,7 @@ app.post('/deleteStore',verifyAdmin, async (req,res) => {
 
 //verify end-points
 function verify(req,res,next) {
-  console.log("verify function: ",req.body)
+  console.log("verify user")
   const token = req.body.token;
   if(!token) return res.send('Access Denied no access token: '+ token);
   try {
@@ -394,7 +400,7 @@ function verify(req,res,next) {
   }
 }
 function verifyAdmin(req,res,next) {
-  console.log("verifyAdmin function body: ", req.body)
+  console.log("verify Admin")
   const token = req.body.token;
   if(!token) return res.send({status: 'Access Denied no access token: '+ token});
   try {
