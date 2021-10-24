@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ReportFormService } from './report-form.service';
 
@@ -16,15 +17,15 @@ export class ReportFormComponent implements OnInit {
   centres: any;
   sCentre: any;
   centreOption: any;
-  centrePicked: boolean = false;
   status: any;
 
-  constructor(private cookieService: CookieService, private api:ReportFormService) { }
+  constructor(private cookieService: CookieService, private api:ReportFormService, private router:Router) { }
   reportForm = new FormGroup({
     dateOfComp: new FormControl(this.currentdate),
     fName: new FormControl(),
     lName: new FormControl(),
     email: new FormControl(),
+    incidentType: new FormControl(),
     centreLocation: new FormControl(),
     storeLocation: new FormControl(),
     incidentDate: new FormControl(),
@@ -34,6 +35,7 @@ export class ReportFormComponent implements OnInit {
     signature: new FormControl(),
   })
   ngOnInit(): void {
+    this.reportForm.get('storeLocation').disable();
     this.fetchCentres();
   }
 
@@ -59,7 +61,11 @@ export class ReportFormComponent implements OnInit {
 
     //find all stores in centre
     this.sCentre = this.centres.find((centre) => centre.name == centreOption)
-    this.centrePicked = true;
+    console.log("scentre", this.sCentre);
+    this.reportForm.get('storeLocation').enable();
+  }
+  back() {
+    this.router.navigate(['dashboard'])
   }
 
 

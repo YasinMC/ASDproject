@@ -14,8 +14,12 @@ import { StoreManageComponent } from './store-manage/store-manage.component';
 import { OffenderListComponent } from './offender-list/offender-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CreateOffenderComponent } from './create-offender/create-offender.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
+  { path: '' , component: HomePageComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard]},
   { path: 'csv', component: ExportCsvComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent, },

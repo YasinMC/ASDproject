@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { RegisterService } from './register.service';
 })
 export class RegisterComponent implements OnInit {
   status: any;
-  constructor(private api: RegisterService) { }
+  constructor(private api: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -21,6 +22,10 @@ export class RegisterComponent implements OnInit {
   
   register(){
     this.api.register(this.registerForm.value).subscribe(data => this.status = data);
+  }
+
+  back(){
+    this.router.navigate(['']);
   }
 
 }

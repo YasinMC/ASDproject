@@ -1,5 +1,98 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+	font-family: 'Roboto', sans-serif !important;
+}
 body{
 	margin: 0px;
-  font-size:100%; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1;
 }
+
+
+
+/* CSS BUTTON */
+.button {
+	align-items: center;
+	background: #FFFFFF;
+	border: 0.001px solid #E2E8F0;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-sizing: border-box;
+	color: #1A202C;
+	display: inline-flex;
+	font-size: 1.2rem;
+	height: 56px;
+	justify-content: center;
+	line-height: 24px;
+	overflow-wrap: break-word;
+	padding: 24px;
+	text-decoration: none;
+	width: 300px;
+	border-radius: 8px;
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	transition: all 235ms ease-in-out;
+  }
+  .line {
+	  text-decoration: underline;
+  }
+  .button:hover {
+	box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+	transform: translate3d(0, 2px, 0);
+  }
+  .button:focus {
+	box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+  }
+
+
+
+    /* The alert message box */
+ .greenAlert {
+	border: 1px solid transparent;
+    border-radius: 0.25rem;
+	padding: 20px;
+	color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+	position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+	width: 50%;
+	margin: auto;
+	position: fixed;
+	top: 2%;
+	left: 50%;
+	margin-left: -475px;
+  }
+  .redAlert {
+	border: 1px solid transparent;
+    border-radius: 0.25rem;
+	padding: 20px;
+	color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+	position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+	width: 50%;
+	margin: auto;
+	position: fixed;
+	top: 2%;
+	left: 50%;
+	margin-left: -475px;
+  }
+  /* The close button */
+  .closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+  }
+  /* When moving the mouse over the close button */
+  .closebtn:hover {
+	color: black;
+  }

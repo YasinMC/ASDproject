@@ -3,21 +3,39 @@
 Author: Luke Galic
 Student number: 13564810
 -->
+<app-header></app-header>
 
-<h1>Add User</h1>
+<h3>Register</h3>
 <form [formGroup]="registerForm" (ngSubmit)="register()">
 	<div class="container">
-		<label for="id"><b>Employee ID (provided)</b></label>
-		<input type="text" placeholder="Enter ID" name="eid" required  formControlName="eid">
 
-		<label for="email"><b>Email</b></label>
-		<input type="text" placeholder="Enter Email" name="email" required formControlName="email">
-	
-		<label for="password"><b>Password</b></label>
-		<input type="password" placeholder="Enter Password" name="password" formControlName="password">
+		<div class="item">
+			<label for="first name">first name
+				<input type="text" placeholder="Enter first name" name="fName" required  formControlName="fName">
+			</label>
+			<label for="last name">last name 
+				<input type="text" placeholder="Enter last name" name="lName" required  formControlName="lName">
+			</label>
+		</div>
 
-		<button [disabled]="!registerForm.valid" type="submit">ADD</button>
+
+		<div class="item">
+			<label for="email">Email
+				<input type="text" placeholder="Enter Email" name="email" required formControlName="email">
+			</label>
+			<label for="password">Password
+				<input type="password" placeholder="Enter Password" name="password" formControlName="password">
+			</label>
+		</div>
+
+		<button [disabled]="!registerForm.valid" type="submit">Register</button>
 	</div>
 	<p *ngIf="status">{{status}}</p>
 </form>
+<div class="btnContainer">
+	<button style="margin-top: 50px; width: 100px;" class="back-button" (click)="back()">back</button>
+</div>
+
+
+
 

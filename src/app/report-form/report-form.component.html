@@ -1,4 +1,4 @@
-<body>
+<app-header></app-header>
     <div class="testbox">
       <form [formGroup]="reportForm" (ngSubmit) = "onClickSubmit()">
         
@@ -8,64 +8,61 @@
         <hr/>
 
         <div class="item">
-          <p>Name</p>
-          <input type="text" name="fName" placeholder="First" formControlName="fName">
-          <input type="text" name="lName" placeholder="Last" formControlName="lName">
+          <label>Centre Name:
+            <select (change)="changeCentre()" name="centreLocation" formControlName="centreLocation">
+              <option  *ngFor="let centre of centres" value="{{centre.name}}">{{centre.name}}</option>
+            </select>
+          </label>
+
+          <label>Store Name
+            <select *ngIf="sCentre" name="storeLocation" formControlName="storeLocation">
+              <option *ngFor="let store of sCentre.stores" value="{{store.sName}}">{{store.sName}}</option>
+            </select>
+
+            <select *ngIf="!sCentre" name="storeLocation" formControlName="storeLocation">
+            </select>
+          </label>
+
         </div>
 
         <div class="item">
-          <p>Email</p>
-          <input type="text" name="email" formControlName="email">
-        </div>
-        <div class="item">
-          <p>Centre Name:</p>
-          <select (change)="changeCentre()" name="centreLocation" formControlName="centreLocation">
-            <option  *ngFor="let centre of centres" value="{{centre.name}}">{{centre.name}}</option>
-          </select>
-        </div>
-        <div class="item">
-          <p>Store Name</p>
-          <select *ngIf="centrePicked" name="storeLocation" formControlName="storeLocation">
-            <option *ngFor="let store of sCentre.stores" value="{{store.sName}}">{{store.sName}}</option>
-          </select>
-        </div>
-        <div class="item">
-          <p>Date of the reported incident</p>
-          <input type="date" name="incidentDate" required formControlName="incidentDate">
-          <i class="fas fa-calendar-alt"></i>
-        </div>
+          <label>Date of the reported incident
+            <input type="date" name="incidentDate" required formControlName="incidentDate">
+            <i class="fas fa-calendar-alt"></i>
+          </label>
 
-        <div class="item location">
-          <p>Incident location</p>
-          <input type="incLocation" name="name" formControlName="incidentLocation">
+          <label>Incident type
+            <select name="incidentType" formControlName="incidentType">
+              <option value="harrasment">Harrasment</option>
+              <option value="Accident">Accident</option>
+              <option value="Fatality">Fatality</option>
+            </select>
+          </label>
         </div>
 
         <div class="item complaint-details">
-          <p>Complaint Details</p>
           <div class="complaint-details-item">
-            <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
+            <label for="compDetails">Complaint details
+              <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
+            </label>
           </div>
         </div>
 
         <div class="item desired-outcome">
-          <p>Desired Outcome</p>
-
           <div class="desired-outcome-item">
-            <textarea name="desiredOutcome" rows="5" formControlName="desiredOutcome"></textarea>
+            <label for="desiredOutcome">Desired outcome
+              <textarea name="desiredOutcome" rows="5" formControlName="desiredOutcome"></textarea>
+            </label>
             <small>By signing you declare that all information you have entered is truthful and accurate.</small>
           </div>
         </div>
 
-        <h4>Your Signature</h4>
-
-        <textarea name="signature" rows="5" formControlName="signature"></textarea>
-        <small>By signing you declare that all information you have entered is truthful and accurate.</small>
-        
         <div class="btn-block">
-          <button type="submit">SEND</button>
+          <button class="button" type="submit">SEND</button>
         </div>
-        <p class="status" >{{status.status}}</p>
       </form>
-
     </div>
-</body>
+
+    <div class="btnContainer">
+      <button style="width: 100px;" class="button" (click)="back()">back</button>
+    </div>

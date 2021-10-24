@@ -175,23 +175,6 @@ html, body {
   margin-top: 20px;
   text-align: center;
   }
-  button {
-    text-align: center;  
-    width: 150px;
-  padding: 10px;
-  border: none;
-  -webkit-border-radius: 5px; 
-  -moz-border-radius: 5px; 
-  border-radius: 5px; 
-  background-color: #095484;
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-
-  }
-  button:hover {
-  background-color: #0666a3;
-  }
   @media (min-width: 568px) {
   input {
   width: calc(35% - 20px);
@@ -236,3 +219,10 @@ html, body {
   }
   }
 /* ==============FORM CSS END =============*/
+
+.btnContainer{
+	position: fixed;
+	top: 2%;
+	left: 2%;
+	z-index: 2;
+  }

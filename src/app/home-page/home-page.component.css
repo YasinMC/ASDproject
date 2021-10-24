@@ -1,0 +1,64 @@
+
+h3 {
+	font-weight: normal;
+}
+[hidden] {
+    overflow: hidden;  /* Hide the element content, while height = 0 */
+    height: 0 !important;
+    opacity: 0 !important;
+	margin-top: 0px !important;
+    transition: margin-top 0ms 400ms, height 0ms 400ms, opacity 400ms 0ms;
+  }
+
+
+.page1 {
+	margin-top: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: auto; opacity: 1;
+    transition: height 0ms 0ms, opacity 600ms 0ms;
+}
+
+.page2 {
+	margin-top: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: auto; opacity: 1;
+    transition: height 0ms 0ms, opacity 600ms 0ms;
+}
+
+.page3 {
+	margin-top: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: auto; opacity: 1;
+    transition: height 0ms 0ms, opacity 600ms 0ms;
+}
+
+.options {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+p {
+	margin: 20px;
+}
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+.btnContainer{
+	position: fixed;
+	top: 2%;
+	left: 2%;
+	z-index: 2;
+  }
