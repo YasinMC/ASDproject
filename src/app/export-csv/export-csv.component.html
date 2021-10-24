@@ -3,8 +3,9 @@
 Author: Briana Margetts
 Student number: 140574003
 -->
+<app-header></app-header>
 
-<body ng-app="exportCSV">
+<h3 style="text-align: center; margin-top: 50px;">Incident reports</h3>
   <table id="incidentTable" class="table">
     <tr>
       <th>ID</th>
@@ -35,10 +36,6 @@ Student number: 140574003
         <td><img width="25px" height="25px" src="assets/images/bin.png" alt="delete" (click)="deleteIncident(complaint._id)"></td>
     </tr>
   </table>
-    <!-- button saves csv-->
-
-  <button class="exportBtn" type="button" (click)="exportComplaints()" >Export CSV</button>
-
 
   <!-- UPDATE REPORT POP UP WINDOW-->
   <div  [ngStyle]="{'display': displayPopUp}" id="myModal" class="modal">
@@ -115,11 +112,11 @@ Student number: 140574003
               <button type="submit">Send</button>
             </div>
             <p class="statusMessage" *ngIf="status">{{status.status}}</p>
-
           </form>
         </div>
       </div>
   </div>
-
+  <div class="btnContainer">
+    <button style="width: 100px;" class="button" (click)="back()">back</button>
+  </div>
   <p class="statusMessage" *ngIf="status">{{status.status}}</p>
-</body>

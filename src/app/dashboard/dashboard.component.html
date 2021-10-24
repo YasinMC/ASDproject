@@ -1,0 +1,77 @@
+<app-header></app-header>
+
+<h3>dashboard</h3>
+<div class="container">
+	<button class="button" routerLink='/form'>
+		<img width="30px" src="assets/images/report.png">
+		Report incident
+	</button>
+	
+</div>
+<div class="container">
+	<button class="button"  routerLink='/csv'>
+		<img width="30px" src="assets/images/viewReport.png">
+		View reports
+	</button>
+
+	<button class="button" routerLink='/account'>
+		<img width="30px" src="assets/images/account.png" alt="">
+		Account details
+	</button>
+
+</div>
+
+<div class="container">
+	<button class="button"  routerLink='/offenders'>
+		<img width="30px" src="assets/images/offenderList.svg">
+		Offenders list
+	</button>
+
+	<button class="button" routerLink='/add-offender'>
+		<img width="30px" src="assets/images/offender.png" alt="">
+		Add Offender
+	</button>
+
+</div>
+
+<div class="container">
+	<button class="button"  routerLink='/userList'>
+		<img width="30px" src="assets/images/viewReport.png">
+		User List
+	</button>
+
+	<button class="button" routerLink='/add-employee'>
+		<img width="30px" src="assets/images/account.png" alt="">
+		Add user
+	</button>
+
+</div>
+
+<div class="container">
+	<button class="button"  routerLink='/store'>
+		<img width="30px" src="assets/images/viewReport.png">
+		Store Management
+	</button>
+
+	<button class="button" routerLink='/newID'>
+		<img width="30px" src="assets/images/account.png" alt="">
+		Create Staff ID
+	</button>
+
+</div>
+
+
+
+<div class="container">
+	<button class="button" (click)="logout()">
+		<img width="30px" src="assets/images/logout.png" alt="">
+		Log-out
+	</button>
+
+
+	<!--<button style="margin-top: 50px; width: 100px;" class="button" (click)="back()">back</button>-->
+</div>
+<div *ngIf="alert" class="redAlert">
+	<span class="closebtn" >&times;</span>
+	This is an alert box.
+</div>

@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { ReportFormService } from '../report-form/report-form.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class ExportCsvComponent implements OnInit {
     signature: new FormControl(),
   })
 
-  constructor(private api:ReportFormService, private complaintsAPI: ExportCsvService, private cookieService: CookieService, private authService: AuthService) { }
+  constructor(private api:ReportFormService, private complaintsAPI: ExportCsvService, private cookieService: CookieService, private authService: AuthService, private router:Router) { }
 
   ngOnInit(): void {
     this.fetchCentres();
@@ -127,20 +128,8 @@ export class ExportCsvComponent implements OnInit {
   clearStatus(){
     this.status = null;
   }
-  exportComplaints(){
-    var x = { 
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      showLabels: true, 
-      showTitle: true,
-      title: 'Incident List',
-      useBom: true,
-      headers: ["id","Date of incident",	"Name",	"Email",	"Store location",	"Store name",
-      	"Date of incident", "incident location", "Complaint details",	"Desired outcome"]
-    };
-   
-    new ngxCsv(this.reportForm, "IncidentList", x);
-     }
+  back(){
+    this.router.navigate(['dashboard'])
+  }
   
 }

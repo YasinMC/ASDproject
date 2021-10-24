@@ -20,6 +20,9 @@ import { OffenderListComponent } from './offender-list/offender-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CreateOffenderComponent } from './create-offender/create-offender.component';
 import { NewIdComponent } from './new-id/new-id.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { NewIdComponent } from './new-id/new-id.component';
     NewIdComponent,
     AccountComponent,
     CreateOffenderComponent,
-    NewIdComponent
+    NewIdComponent,
+    HomePageComponent,
+    HeaderComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

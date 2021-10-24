@@ -5,7 +5,6 @@ html, body {
     padding: 0;
     margin: 0;
     outline: none;
-    font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
     color: rgb(34, 34, 34);
     line-height: 22px;
@@ -16,6 +15,7 @@ html, body {
         font-size: 20px;
     }
     h1 {
+    text-align: center;
     margin: 15px 0;
     font-weight: 400;
     }
@@ -57,6 +57,7 @@ html, body {
     background: transparent;
     }
     textarea {
+        width: 100%;
     margin-bottom: 3px;
     }
     .item {
@@ -64,6 +65,7 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: 10px 0;
+    width: 100%;
     }
     input[type="date"]::-webkit-inner-spin-button {
     display: none;
@@ -100,29 +102,25 @@ html, body {
     margin-top: 20px;
     text-align: center;
     }
-    button {
-    width: 150px;
-    padding: 10px;
-    border: none;
-    -webkit-border-radius: 5px; 
-    -moz-border-radius: 5px; 
-    border-radius: 5px; 
-    background-color: #095484;
-    font-size: 16px;
-    color: #fff;
-    cursor: pointer;
+
+    label {
+        width: 100%;
+        margin: 0px 10px;
     }
-    button:hover {
-    background-color: #0666a3;
+    @media (max-width: 1200px) {
+        .testbox{
+            margin-left: 0px;
+            margin-right: 0px;
+        }
     }
+    
     @media (min-width: 568px) {
     input {
-    width: calc(35% - 20px);
-    margin: 0 0 0 9px;
+        width: calc(100% - 10px);
     }
     select {
-    width: calc(50% - 8px);
-    margin: 0 0 10px 9px;
+    width: 100%;
+    margin: 0 0px 10px 0px;
     }
     .item {
     flex-direction: row;
@@ -139,7 +137,7 @@ html, body {
     left: 60%;
     }
     .street, .desired-outcome-item, .complaint-details-item {
-    width: 70%;
+    width: 100%;
     }
     .street input {
     width: calc(50% - 20px);
@@ -151,10 +149,16 @@ html, body {
     align-self: flex-start;
     margin-top: 6px;
     }
-    .desired-outcome-item, .complaint-details-item {
-    margin-left: 12px;
-    }
     textarea {
     width: calc(100% - 6px);
     }
     }
+    [disabled] {
+        background-color: #cccccc;
+    }
+    .btnContainer{
+        position: fixed;
+        top: 2%;
+        left: 2%;
+        z-index: 2;
+      }

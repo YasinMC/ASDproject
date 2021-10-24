@@ -31,10 +31,14 @@ export class LoginComponent implements OnInit {
 
       if(this.user.AT){
         this.authService.verifyUser();
-        this.router.navigate(['csv']);
+        this.router.navigate(['dashboard']);
         //update user login status
       } 
     });
+  }
+
+  back(){
+    this.router.navigate(['']);
   }
 
 }

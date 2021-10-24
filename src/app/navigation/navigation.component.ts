@@ -56,7 +56,7 @@ export class NavigationComponent implements OnInit {
         this.admin = false; 
         console.log("admin AT is not valid. User logged off.")
       }
-    }
+    }  
     
   logout(){
     this.cookieService.delete('access-token');
