@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ExportCsvService } from './export-csv.service';
 import { CookieService } from 'ngx-cookie-service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -6,8 +6,8 @@ import { AuthService } from '../auth/auth.service';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { ReportFormService } from '../report-form/report-form.service';
 import { Router } from '@angular/router';
-
-
+import { jsPDF } from "jspdf";
+import * as html2pdf from 'html2pdf.js';
 @Component({
   selector: 'app-export-csv',
   templateUrl: './export-csv.component.html',
@@ -133,6 +133,22 @@ export class ExportCsvComponent implements OnInit {
   close(){
     sessionStorage.setItem('alert', '');
     this.status = '';
+  }
+
+  exportAllRecords(){
+    // Default export is a4 paper, portrait, using millimeters for units
+
+    const element = document.getElementById("printable");
+
+    var opt = {
+      margin:       1,
+      filename:     'report.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'in', format: [20, 20], orientation: 'landscape' }
+    };
+
+    html2pdf().from(element).set(opt).save();
   }
   
 }
