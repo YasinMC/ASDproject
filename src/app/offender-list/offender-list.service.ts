@@ -9,6 +9,6 @@ export class OffenderListService {
   constructor(private http: HttpClient) { }
 
   getAllOffenders(token) {
-    return this.http.post("http://localhost:3500/findAllOffenders", {token: token});
+    return this.http.post("http://20.37.255.79:3500/findAllOffenders", {token: token});
   }
 }

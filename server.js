@@ -7,10 +7,6 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const db = require('./Database/dbQueries');
-const { nextTick } = require('process');
-
-const frontEndURL = 'http://localhost';
-const frontEndHostPort = '4200';
 
 app.use(cors());
 
@@ -18,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
-    res.redirect(`${frontEndURL}:${frontEndHostPort}`);
+    res.send({message:'welcome to the server'});
 });
 
 //complaint end-points
