@@ -27,6 +27,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { initializeApp } from "firebase/app";
 import { AngularFireModule } from '@angular/fire/compat';
+import { ComponentNameComponent } from './component-name/component-name.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -57,7 +59,9 @@ const firebaseConfig = {
     NewIdComponent,
     HomePageComponent,
     HeaderComponent,
-    DashboardComponent
+    DashboardComponent,
+    ComponentNameComponent,
+    DeleteUserComponent
   ],
   imports: [
     BrowserModule,
