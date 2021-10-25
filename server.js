@@ -26,6 +26,10 @@ app.post('/api/submitComplaint',verify, async (req, res) => {
   if(!req.body.token) {
     res.send({status: "user not logged in"});
   }
+  if(!req.body.complaint.centreLocation || !req.body.complaint.centreLocation || !req.body.complaint.incidentType || !req.body.complaint.dateOfComp || !req.body.complaint.compDetails || !req.body.complaint.desiredOutcome){
+    return res.send({status: "failed to report. Please fill all fields"})
+  }
+
   try {
     const userID = jwt.verify(req.body.token, process.env.ACCESS_SECRET);
     complaint = req.body.complaint;
@@ -120,7 +124,7 @@ app.post('/login', async (req,res) => {
 
     //send a welcome back with token id
     res.send({
-      status: "Welcome back, " + user.email,
+      status: "success",
       AT: accessToken
     })
   }
@@ -129,7 +133,40 @@ app.post('/login', async (req,res) => {
 app.post('/register', async (req,res) => {
 
   //data validation
-  if(!req.body.eid) return res.send({status: "id field empty"});
+  if(!req.body.fName) return res.send({status: "first name field empty"});
+  if(!req.body.lName) return res.send({status: "last name field empty"});
+  if(!req.body.email) return res.send({status: "email field empty"});
+  if(!req.body.password) return res.send({status: "password field empty"});
+
+  try {
+    //check if email exists
+    const userEmail = await db.findUserByEmail(req.body.email);
+
+    if(userEmail) return res.send({status: "email exists: " + userEmail.email});
+
+  } catch (error) {
+    res.send({status: "error checking email", error: error})
+  }
+
+  //hash user password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+  req.body.password = hashedPassword;
+  try {
+    //add user to mongoDB
+    db.addUser(req.body);
+    res.send({status: `added user`});
+  } catch (error) {
+    console.log(error);
+    res.send({status: `error registering user`});
+  }
+})
+app.post('/registerStaff', async (req,res) => {
+
+  //data validation
+  if(!req.body.fName) return res.send({status: "first name field empty"});
+  if(!req.body.lName) return res.send({status: "last name field empty"});
+  if(!req.body.eid) return res.send({status: "employee id field is empty"})
   if(!req.body.email) return res.send({status: "email field empty"});
   if(!req.body.password) return res.send({status: "password field empty"});
 

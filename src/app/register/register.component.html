@@ -30,7 +30,11 @@ Student number: 13564810
 
 		<button [disabled]="!registerForm.valid" type="submit">Register</button>
 	</div>
-	<p *ngIf="status">{{status}}</p>
+	<div *ngIf="alert == 'register failed'" class="redAlert">
+		<span class="closebtn" >&times;</span>
+		Register failed try again: {{status.status}}
+	</div>
+
 </form>
 <div class="btnContainer">
 	<button style="margin-top: 50px; width: 100px;" class="back-button" (click)="back()">back</button>

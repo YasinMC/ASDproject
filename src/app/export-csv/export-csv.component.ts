@@ -26,19 +26,16 @@ export class ExportCsvComponent implements OnInit {
   centreOption: any;
   centrePicked: boolean = false;
   admin: any;
+  alert: any;
 
   reportForm = new FormGroup({
     dateOfComp: new FormControl(),
-    fName: new FormControl(),
-    lName: new FormControl(),
-    email: new FormControl(),
+    incidentType: new FormControl(),
     centreLocation: new FormControl(),
     storeLocation: new FormControl(),
     incidentDate: new FormControl(),
-    incidentLocation: new FormControl(),
     compDetails: new FormControl(),
     desiredOutcome: new FormControl(),
-    signature: new FormControl(),
   })
 
   constructor(private api:ReportFormService, private complaintsAPI: ExportCsvService, private cookieService: CookieService, private authService: AuthService, private router:Router) { }
@@ -46,7 +43,9 @@ export class ExportCsvComponent implements OnInit {
   ngOnInit(): void {
     this.fetchCentres();
 
-    //HARD CODED VARIABLE (TESTING ONLY)
+    this.alert = sessionStorage.getItem('alert');
+
+    //user token
     this.token = this.cookieService.get('access-token') //"614a4a3bd1bd601ebb61fd59"
     this.getFormData();
   }
@@ -61,7 +60,7 @@ export class ExportCsvComponent implements OnInit {
     }
   }
   
-  //display the pop up windo
+  //display the pop up window
   updateForm(incidentId) {
     this.token = this.cookieService.get('access-token') 
     this.complaintsAPI.fetchUserComplaint(incidentId, this.token).subscribe(data => {
@@ -130,6 +129,10 @@ export class ExportCsvComponent implements OnInit {
   }
   back(){
     this.router.navigate(['dashboard'])
+  }
+  close(){
+    sessionStorage.setItem('alert', '');
+    this.status = '';
   }
   
 }

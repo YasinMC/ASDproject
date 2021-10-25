@@ -18,21 +18,17 @@ export class ReportFormComponent implements OnInit {
   sCentre: any;
   centreOption: any;
   status: any;
+  alert: any;
 
   constructor(private cookieService: CookieService, private api:ReportFormService, private router:Router) { }
   reportForm = new FormGroup({
     dateOfComp: new FormControl(this.currentdate),
-    fName: new FormControl(),
-    lName: new FormControl(),
-    email: new FormControl(),
     incidentType: new FormControl(),
     centreLocation: new FormControl(),
     storeLocation: new FormControl(),
     incidentDate: new FormControl(),
-    incidentLocation: new FormControl(),
     compDetails: new FormControl(),
     desiredOutcome: new FormControl(),
-    signature: new FormControl(),
   })
   ngOnInit(): void {
     this.reportForm.get('storeLocation').disable();
@@ -42,7 +38,16 @@ export class ReportFormComponent implements OnInit {
   onClickSubmit() {
     const form = this.reportForm.value;
     const token = this.cookieService.get('access-token');
-    this.api.submitComplaint(token, form).subscribe(data => this.status = data);
+    this.api.submitComplaint(token, form).subscribe(data => {
+      this.status = data;
+      console.log(this.status.status);
+      if(this.status.status != 'incident reported'){
+        this.alert = this.status.status;
+      }else{
+        sessionStorage.setItem('alert', 'reported incident successfully');
+        this.router.navigate(['csv']);
+      }
+    });
   }
   fetchCentres(){
     const token = this.cookieService.get('access-token');
@@ -67,20 +72,8 @@ export class ReportFormComponent implements OnInit {
   back() {
     this.router.navigate(['dashboard'])
   }
-
-
-
-  async submitComplaint(data): Promise<void> {
-    
-    data.token = this.cookieService.get("access-token")
-    data = JSON.stringify(data);
-    await fetch(this.URL + '/api/submitComplaint', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: data, 
-    });
-}
-
+  close() {
+    this.alert = '';
+    sessionStorage.setItem('alert', '');
+  }
 }

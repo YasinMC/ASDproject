@@ -1,7 +1,8 @@
+<app-header></app-header>
 <h1>Store Management</h1>
 <div class="buttonbox">
-    <button class="button buttonStyle" (click)="addStore()">Add Store</button>
-    <button class="button buttonStyle" (click)="deleteStore()">Delete Store</button>
+    <button class="addBtn buttonStyle" (click)="addStore()">Add Store</button>
+    <button class="addBtn buttonStyle" (click)="deleteStore()">Delete Store</button>
 </div>
 
 <div  [ngStyle]="{'display': displayPopUp1}" id="myModal" class="modal1">
@@ -77,5 +78,7 @@
         </form>
     </div>
 </div>
-
+<div class="btnContainer">
+	<button style="width: 100px;" class="button" (click)="back()">back</button>
+</div>
 

@@ -7,7 +7,7 @@ form {
 h1 {
     text-align: center;
 }
-button[disabled] {
+.addBtn[disabled] {
   background-color: gray;
   color: rgb(219, 219, 219);
   cursor: not-allowed;
@@ -27,7 +27,7 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
-button {
+.addBtn {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -37,7 +37,7 @@ button {
   width: 100%;
 }
 
-button:hover {
+.addBtn:hover {
   opacity: 0.8;
 }
 

@@ -33,7 +33,7 @@
 
           <label>Incident type
             <select name="incidentType" formControlName="incidentType">
-              <option value="harrasment">Harrasment</option>
+              <option value="harrasment">Harrassment</option>
               <option value="Accident">Accident</option>
               <option value="Fatality">Fatality</option>
             </select>
@@ -65,4 +65,8 @@
 
     <div class="btnContainer">
       <button style="width: 100px;" class="button" (click)="back()">back</button>
+    </div>
+    <div *ngIf="alert" class="redAlert">
+      <span class="closebtn" (click)="close()">&times;</span>
+       <b>error: </b> {{alert}}
     </div>

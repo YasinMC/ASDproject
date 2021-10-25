@@ -8,14 +8,12 @@ Student number: 140574003
 <h3 style="text-align: center; margin-top: 50px;">Incident reports</h3>
   <table id="incidentTable" class="table">
     <tr>
-      <th>ID</th>
+      <th>complaint ID</th>
+      <th>user ID</th>
       <th>Date of incident</th>
-      <th>Name</th>
-      <th>Email</th>
       <th>Store location</th>
       <th>Store name</th>
       <th>Date of incident</th>
-      <th>incident location</th>
       <th>Complaint details</th>
       <th>Desired outcome</th>
       <th>Edit</th>
@@ -23,13 +21,11 @@ Student number: 140574003
     </tr>
     <tr *ngFor="let complaint of complaints">
         <td>{{complaint._id}}</td>
+        <td>{{complaint.userId}}</td>
         <td>{{complaint.dateOfComp}}</td>
-        <td>{{complaint.fName}} {{complaint.lName}}</td>
-        <td>{{complaint.email}}</td>
         <td>{{complaint.centreLocation}}</td>
         <td>{{complaint.storeLocation}}</td>
         <td>{{complaint.incidentDate}}</td>
-        <td>{{complaint.incidentLocation}}</td>
         <td>{{complaint.compDetails}}</td>
         <td>{{complaint.desiredOutcome}}</td>
         <td><img width="25px" height="25px" src="assets/images/edit.png" alt="edit" (click)="updateForm(complaint._id)"></td>
@@ -50,18 +46,8 @@ Student number: 140574003
 
             <div class="item">
               <p>Date of complaint</p>
-              <input type="date" name="dateOfComp" required formControlName="dateOfComp" disabled>
+              <input type="text" name="dateOfComp" required formControlName="dateOfComp" disabled>
               <i class="fas fa-calendar-alt"></i>
-            </div>
-            <div class="item">
-              <p>Name</p>
-              <input type="text" name="fName" placeholder="First" formControlName="fName">
-              <input type="text" name="lName" placeholder="Last" formControlName="lName">
-            </div>
-    
-            <div class="item">
-              <p>Email</p>
-              <input type="text" name="email" formControlName="email">
             </div>
             <div class="item">
               <p>Centre Name:</p>
@@ -86,12 +72,16 @@ Student number: 140574003
               <input type="date" name="incidentDate" required formControlName="incidentDate">
               <i class="fas fa-calendar-alt"></i>
             </div>
-    
-            <div class="item location">
-              <p>Incident location</p>
-              <input type="incLocation" name="name" formControlName="incidentLocation">
+
+            <div class="item">
+              <p>Incident type </p>
+                <select name="incidentType" formControlName="incidentType">
+                  <option value="harrasment">Harrassment</option>
+                  <option value="Accident">Accident</option>
+                  <option value="Fatality">Fatality</option>
+                </select>
             </div>
-    
+
             <div class="item complaint-details">
               <p>Complaint Details</p>
               <div class="complaint-details-item">
@@ -111,7 +101,20 @@ Student number: 140574003
             <div class="btn-block">
               <button type="submit">Send</button>
             </div>
-            <p class="statusMessage" *ngIf="status">{{status.status}}</p>
+            <div *ngIf="status">
+              <div *ngIf="status.status == 'updated incident successfully'" class="greenAlert">
+                <span class="closebtn" (click)="close()">&times;</span>
+                {{status.status}}
+              </div>
+            </div>
+            
+            <div *ngIf="status">
+              <div *ngIf="status.status != 'updated incident successfully'" class="redAlert">
+                <span class="closebtn" (click)="close()">&times;</span>
+                {{status.status}}
+              </div>
+            </div>
+
           </form>
         </div>
       </div>
@@ -119,4 +122,4 @@ Student number: 140574003
   <div class="btnContainer">
     <button style="width: 100px;" class="button" (click)="back()">back</button>
   </div>
-  <p class="statusMessage" *ngIf="status">{{status.status}}</p>
+

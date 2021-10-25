@@ -3,6 +3,7 @@
 Author: Anton Horlanchuk
 Student number: 13571601
 -->
+<app-header></app-header>
 <h1>Add Offender</h1>
 <form #registerForm = "ngForm" (ngSubmit) = "createNewOffender(registerForm.value)">
   <div class="container">
@@ -15,7 +16,10 @@ Student number: 13571601
       <label for="description"><b>Brief Description Of Person</b></label>
       <input type="text" placeholder="Enter Description" name="description" required ngModel>
 
-      <button type="submit">Add Offender</button>
+      <button class="addBtn" type="submit">Add Offender</button>
       <p *ngIf="status">{{status.status}}</p>
   </div>
 </form>
+<div class="btnContainer">
+	<button style="width: 100px;" class="button" (click)="back()">back</button>
+</div>

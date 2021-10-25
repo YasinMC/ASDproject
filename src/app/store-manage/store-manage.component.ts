@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { StoreManageService } from './store-manage.service';
 
@@ -31,7 +32,7 @@ export class StoreManageComponent implements OnInit {
     sName: new FormControl('')
   })
 
-  constructor(private cookieService: CookieService, private storeService: StoreManageService) { }
+  constructor(private router:Router, private cookieService: CookieService, private storeService: StoreManageService) { }
 
   ngOnInit(): void {
     this.token = this.cookieService.get('access-token')
@@ -79,6 +80,9 @@ export class StoreManageComponent implements OnInit {
 
   closeUpdateForm2() {
     this.displayPopUp2 = "none";
+  }
+  back(){
+    this.router.navigate(['dashboard']);
   }
 }
 

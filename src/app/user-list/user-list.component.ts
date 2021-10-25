@@ -3,6 +3,7 @@ import { UserListService } from './user-list.service';
 import { CookieService } from 'ngx-cookie-service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -22,7 +23,7 @@ export class UserListComponent implements OnInit {
     email: new FormControl(''),
   })
 
-  constructor(private cookieService: CookieService, private userService: UserListService, private authService: AuthService) { }
+  constructor(private router:Router,private cookieService: CookieService, private userService: UserListService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.token = this.cookieService.get('access-token') 
@@ -65,6 +66,9 @@ export class UserListComponent implements OnInit {
     this.token = this.cookieService.get('access-token')
     this.userService.deleteUser(userID, this.token).subscribe(data => this.status = data)
     this.getUserData();
+  }
+  back(){
+    this.router.navigate(['dashboard']);
   }
 
 }

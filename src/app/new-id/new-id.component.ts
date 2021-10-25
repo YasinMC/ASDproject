@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { NewIdService } from './new-id.service';
 import { ReportFormService } from '../report-form/report-form.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-id',
@@ -27,7 +28,7 @@ export class NewIdComponent implements OnInit {
   centrePicked: any;
   token: any;
 
-  constructor(private cookieService: CookieService, private idService: NewIdService, private api: ReportFormService) { }
+  constructor(private router:Router, private cookieService: CookieService, private idService: NewIdService, private api: ReportFormService) { }
 
   ngOnInit(): void {
     this.fetchCentres();
@@ -58,5 +59,8 @@ export class NewIdComponent implements OnInit {
     //find all stores in centre
     this.sCentre = this.centres.find((centre) => centre.name == centreOption)
     this.centrePicked = true;
+  }
+  back(){
+    this.router.navigate(['dashboard']);
   }
 }

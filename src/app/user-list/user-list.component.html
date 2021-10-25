@@ -1,3 +1,4 @@
+<app-header></app-header>
 <body>
     <table id="userTable" class="table">
       <tr>
@@ -48,4 +49,7 @@
           </div>
       </div>
       <p class="statusMessage" *ngIf="status">{{status.status}}</p>
+      <div class="btnContainer">
+        <button style="width: 100px;" class="button" (click)="back()">back</button>
+      </div>
 </body>

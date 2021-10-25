@@ -1,3 +1,4 @@
+<app-header></app-header>
 <table id="incidentTable" class="table">
   <tr>
     <th>Name</th>
@@ -12,6 +13,11 @@
       <td><img width="50px" height="50px" src="assets/images/info.png" alt="edit" (click)="updateForm(offender.reportID)"></td>
   </tr>
 </table>
+
+
+<div class="btnContainer">
+	<button style="width: 100px;" class="button" (click)="back()">back</button>
+</div>
 
 <!-- UPDATE REPORT POP UP WINDOW-->
 <div  [ngStyle]="{'display': displayPopUp}" id="myModal" class="modal">

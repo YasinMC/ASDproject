@@ -3,6 +3,8 @@
 Author: Luke Galic
 Student number: 13564810
 -->
+<app-header></app-header>
+
 <h1>Add User</h1>
 <form [formGroup]="registerForm" (ngSubmit)="register()">
 	<div class="container">
@@ -18,7 +20,11 @@ Student number: 13564810
 		<label for="admin"><b>Admin Privileges</b></label>
 		<input type="checkbox" formControlName="admin">
 
-		<button [disabled]="!registerForm.valid" type="submit">ADD</button>
+		<button class="addBtn" [disabled]="!registerForm.valid" type="submit">ADD</button>
 	</div>
 	<p *ngIf="status">{{status.status}}</p>
 </form>
+
+<div class="btnContainer">
+	<button style="width: 100px;" class="button" (click)="back()">back</button>
+</div>
