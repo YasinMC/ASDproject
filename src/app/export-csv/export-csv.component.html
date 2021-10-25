@@ -3,6 +3,7 @@
 Author: Briana Margetts
 Student number: 140574003
 -->
+<div id="printable">
 <app-header></app-header>
 
 <h3 style="text-align: center; margin-top: 50px;">Incident reports</h3>
@@ -32,6 +33,12 @@ Student number: 140574003
         <td><img width="25px" height="25px" src="assets/images/bin.png" alt="delete" (click)="deleteIncident(complaint._id)"></td>
     </tr>
   </table>
+</div>
+
+<div style="margin: 50px 0px; text-align: center;">
+  <button class="button" (click)=" exportAllRecords()">export all records</button>
+</div>
+
 
   <!-- UPDATE REPORT POP UP WINDOW-->
   <div  [ngStyle]="{'display': displayPopUp}" id="myModal" class="modal">
@@ -119,6 +126,7 @@ Student number: 140574003
         </div>
       </div>
   </div>
+
   <div class="btnContainer">
     <button style="width: 100px;" class="button" (click)="back()">back</button>
   </div>
