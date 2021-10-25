@@ -10,20 +10,20 @@ export class ExportCsvService {
 
 
   showUserComplaints(user){
-    return this.http.post("http://localhost:3500/fetchComplaints", user);
+    return this.http.post("http://20.37.255.79:3500/fetchComplaints", user);
   }
 
   showAllComplaints(token) {
-    return this.http.post("http://localhost:3500/allComplaints", {token: token});
+    return this.http.post("http://20.37.255.79:3500/allComplaints", {token: token});
   }
 
   fetchUserComplaint(complaintId, token) {
-    return this.http.post("http://localhost:3500/fetchComplaint", {complaintId: complaintId, token: token})
+    return this.http.post("http://20.37.255.79:3500/fetchComplaint", {complaintId: complaintId, token: token})
   }
 
   updateIncident(token, id, update) {
     console.log("token = ", token, "| id = ", id, "| update = " , update)
-    return this.http.post("http://localhost:3500/updateComplaint", 
+    return this.http.post("http://20.37.255.79:3500/updateComplaint", 
     {
       token: token, 
       id: id, 
@@ -32,6 +32,6 @@ export class ExportCsvService {
   }
 
   deleteUserComplaint(complaintId, token){
-    return this.http.post('http://localhost:3500/deleteComplaint', {complaintId: complaintId, token: token})
+    return this.http.post('http://20.37.255.79:3500/deleteComplaint', {complaintId: complaintId, token: token})
   }
 }
