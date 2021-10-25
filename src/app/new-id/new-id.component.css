@@ -176,7 +176,7 @@ html, body {
   margin-top: 20px;
   text-align: center;
   }
-  button {
+  .addBtn {
   width: 150px;
   padding: 10px;
   border: none;
@@ -188,7 +188,7 @@ html, body {
   color: #fff;
   cursor: pointer;
   }
-  button:hover {
+  .addBtn:hover {
   background-color: #0666a3;
   }
   @media (min-width: 568px) {

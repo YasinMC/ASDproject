@@ -25,7 +25,12 @@ Student number: 13564810
   <button style="width: 100px;" class="button" (click)="back()">back</button>
 </div>
 
-
-
-<p *ngIf="user" style="color: red; text-align: center;">{{user.status}}</p>
+<div *ngIf="alert == 'register success'" class="greenAlert">
+  <span class="closebtn" (click)="close()">&times;</span>
+  please login: {{alert}}
+</div>
+<div *ngIf="alert == 'loginFailed'" class="redAlert">
+  <span class="closebtn" (click)="close()">&times;</span>
+  login failed try again: {{user.status}}
+</div>
 

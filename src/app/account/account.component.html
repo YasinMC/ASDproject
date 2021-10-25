@@ -1,18 +1,22 @@
+<app-header></app-header>
 <H1>Account Settings</H1>
 <div style="text-align: center;">
 	<table class="center">
 		<tr >
 			<td>current user email</td>
-			<td>	<button (click)="emailChangePopUp()">change email</button>
-			</td>
+			<td><button (click)="emailChangePopUp()">change email</button></td>
 		</tr>
 		<tr>
 			<td>********</td>
-			<td>	<button (click)="passChangePopUp()">change password</button>
-			</td>
+			<td><button (click)="passChangePopUp()">change password</button></td>
 		</tr>
 	</table>
+
 	<button class="deleteBtn" (click)="deleteAccountPopUp()">delete account</button>
+</div>
+
+<div class="btnContainer">
+	<button style="width: 100px;" class="button" (click)="back()">back</button>
 </div>
 
 <div  [ngStyle]="{'display': displayPopUp1}" id="myModal" class="modal1">

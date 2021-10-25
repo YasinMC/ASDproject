@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   URL = 'http://localhost:3500';
   user: any;
+  alert: any;
   constructor(private authService: AuthService, private loginService: LoginService, private cookieService: CookieService, private router: Router) { }
 
   loginForm = new FormGroup({
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    this.alert = sessionStorage.getItem('alert');
   }
 
   async login(){
@@ -28,6 +30,12 @@ export class LoginComponent implements OnInit {
     this.loginService.login(data).subscribe(data => {
       this.user = data;
       this.cookieService.set('access-token', this.user.AT);
+
+      if(this.user.status == 'success'){
+        this.alert = 'success';
+      }else{
+        this.alert = 'loginFailed';
+      }
 
       if(this.user.AT){
         this.authService.verifyUser();
@@ -40,5 +48,8 @@ export class LoginComponent implements OnInit {
   back(){
     this.router.navigate(['']);
   }
-
+  close(){
+    this.alert = '';
+    sessionStorage.setItem('alert', '');
+  }
 }

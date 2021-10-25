@@ -24,6 +24,20 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+
+import { initializeApp } from "firebase/app";
+import { AngularFireModule } from '@angular/fire/compat';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAxtMEW0KhMW2p3zGPUlTL6W9qjhR9dQ2o",
+  authDomain: "asdproject-90b3f.firebaseapp.com",
+  projectId: "asdproject-90b3f",
+  storageBucket: "asdproject-90b3f.appspot.com",
+  messagingSenderId: "951489769541",
+  appId: "1:951489769541:web:4af6671f8b85ec2215f32c"
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +61,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,

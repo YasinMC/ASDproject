@@ -65,5 +65,7 @@ export class AccountComponent implements OnInit {
   closeDeleteAccountPopUp(){
     this.displayPopUp3 = "none";
   }
-
+  back(){
+    this.router.navigate(['dashboard']);
+  }
 }

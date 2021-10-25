@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { ExportCsvService } from '../export-csv/export-csv.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offender-list',
@@ -37,7 +38,7 @@ export class OffenderListComponent implements OnInit {
     signature: new FormControl(''),
   })
 
-  constructor(private cookieService: CookieService, private offenderService: OffenderListService, private authService: AuthService, private complaintsAPI: ExportCsvService) { }
+  constructor(private cookieService: CookieService, private offenderService: OffenderListService, private authService: AuthService, private complaintsAPI: ExportCsvService,private router:Router) { }
 
   ngOnInit(): void {
     this.token = this.cookieService.get('access-token')
@@ -79,6 +80,9 @@ export class OffenderListComponent implements OnInit {
   //Close the pop up window
   closeUpdateForm() {
     this.displayPopUp = "none";
+  }
+  back(){
+    this.router.navigate(['dashboard']);
   }
 
 }

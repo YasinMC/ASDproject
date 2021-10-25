@@ -48,38 +48,36 @@ body{
 
     /* The alert message box */
  .greenAlert {
-	border: 1px solid transparent;
-    border-radius: 0.25rem;
-	padding: 20px;
-	color: #0f5132;
-    background-color: #d1e7dd;
-    border-color: #badbcc;
-	position: relative;
-    padding: 1rem 1rem;
-    margin-bottom: 1rem;
-	width: 50%;
-	margin: auto;
-	position: fixed;
-	top: 2%;
-	left: 50%;
-	margin-left: -475px;
+	border: 1px solid transparent !important;
+    border-radius: 0.25rem !important;
+	padding: 20px !important;
+	color: #0f5132 !important;
+    background-color: #d1e7dd !important;
+    border-color: #badbcc !important;
+    padding: 1rem 1rem !important;
+    margin-bottom: 1rem !important;
+	width: 50% !important;
+	margin: auto !important;
+	position: fixed !important;
+	top: 2% !important;
+	left: 50% !important;
+	margin-left: -475px !important;
   }
   .redAlert {
-	border: 1px solid transparent;
-    border-radius: 0.25rem;
-	padding: 20px;
-	color: #842029;
-    background-color: #f8d7da;
-    border-color: #f5c2c7;
-	position: relative;
-    padding: 1rem 1rem;
-    margin-bottom: 1rem;
-	width: 50%;
-	margin: auto;
-	position: fixed;
-	top: 2%;
-	left: 50%;
-	margin-left: -475px;
+	border: 1px solid transparent !important;
+    border-radius: 0.25rem !important;
+	padding: 20px !important;
+	color: #842029 !important;
+    background-color: #f8d7da !important;
+    border-color: #f5c2c7 !important;
+    padding: 1rem 1rem !important;
+    margin-bottom: 1rem !important;
+	width: 50% !important;
+	margin: auto !important;
+	position: fixed !important;
+	top: 2% !important;
+	left: 50% !important;
+	margin-left: -475px !important;
   }
   /* The close button */
   .closebtn {
@@ -96,3 +94,10 @@ body{
   .closebtn:hover {
 	color: black;
   }
+  .btnContainer{
+	position: fixed;
+	top: 2%;
+	left: 2%;
+	z-index: 2;
+  }
+  

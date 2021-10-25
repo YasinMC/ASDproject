@@ -21,7 +21,7 @@
 
 </div>
 
-<div class="container">
+<div *ngIf="admin" class="container">
 	<button class="button"  routerLink='/offenders'>
 		<img width="30px" src="assets/images/offenderList.svg">
 		Offenders list
@@ -34,7 +34,7 @@
 
 </div>
 
-<div class="container">
+<div *ngIf="admin" class="container">
 	<button class="button"  routerLink='/userList'>
 		<img width="30px" src="assets/images/viewReport.png">
 		User List
@@ -47,7 +47,7 @@
 
 </div>
 
-<div class="container">
+<div *ngIf="admin" class="container">
 	<button class="button"  routerLink='/store'>
 		<img width="30px" src="assets/images/viewReport.png">
 		Store Management
