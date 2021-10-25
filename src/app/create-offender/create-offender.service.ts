@@ -8,6 +8,6 @@ export class CreateOffenderService {
   constructor(private http: HttpClient) { }
 
   createOffender(offender){
-    return this.http.post("http://20.37.255.79:3500/createOffender", offender)
+    return this.http.post("https://20.37.255.79:3500/createOffender", offender)
   }
 }

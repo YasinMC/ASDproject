@@ -23,7 +23,7 @@ export class AuthService {
     if(!AT) return {verification: false};
     
     //if token is present send to server for verification 
-    return await this.http.post('http://20.37.255.79:3500/verify', {token: AT}).toPromise();
+    return await this.http.post('https://20.37.255.79:3500/verify', {token: AT}).toPromise();
   }
 
   async verifyUser(){

@@ -10,7 +10,7 @@ export class NewIdService {
 
   createNewId(staff, token) {
     staff.token = token;
-    return this.http.post("http://20.37.255.79:3500/addEmployee", staff);
+    return this.http.post("https://20.37.255.79:3500/addEmployee", staff);
 
   }
 }
