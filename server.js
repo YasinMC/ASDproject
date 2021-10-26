@@ -402,8 +402,8 @@ app.post('/addStore',verifyAdmin, async (req,res) => {
   try {
     add = await db.addStore(req.body.store);
     console.log(add);
-    if(add.modifiedCount == 1) res.send({status: "added store successfully"});
-    if(add.modifiedCount != 1) res.send({status: "could not add store"});
+    if(add.modifiedCount == 1) res.send({status: "Added store successfully"});
+    if(add.modifiedCount != 1) res.send({status: "Could not add store"});
   } catch (error) {
     console.log(error);
     res.send({status: "error adding store"})
@@ -412,12 +412,35 @@ app.post('/addStore',verifyAdmin, async (req,res) => {
 
 app.post('/deleteStore',verifyAdmin, async (req,res) => {
   del = await db.deleteStore(req.body.store);
-  if(del.modifiedCount == 1) res.send({status: "store deleted", return: del});
-  if(del.modifiedCount != 1) res.send({status: "store not deleted. Please try again"})
+  if(del.modifiedCount == 1) res.send({status: "Store deleted", return: del});
+  if(del.modifiedCount != 1) res.send({status: "Store not deleted. Please try again"})
   }
 )
 
+app.post('/addCentre',verifyAdmin, async (req,res) => {
+  try {
+    add = await db.addCentre(req.body.centre);
+    console.log(add);
+    if (add.insertedId) res.send({status: "Added centre successfully"});
+    if (!add.insertedId) res.send({status: "Could not add centre"});
+  } catch (error) {
+    console.log(error);
+    res.send({status: "Could not add centre"});
+  }
+})
 
+app.post('/deleteCentre',verifyAdmin, async (req,res) => {
+  try {
+  del = await db.deleteCentre(req.body.centre);
+  console.log(del);
+  if(del.deletedCount == 1) res.send({status: "Centre deleted", return: del});
+  if(del.deletedCount != 1) res.send({status: "Centre not deleted. Please try again"})
+  } catch (error) {
+    console.log(error);
+      res.send("Centre not deleted!");
+  }
+  }
+)
 
 //verify end-points
 function verify(req,res,next) {
