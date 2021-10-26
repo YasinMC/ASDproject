@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AccountService } from './account.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 
 describe('AccountComponent', () => {
@@ -14,7 +15,7 @@ describe('AccountComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AccountComponent ],
-      imports: [HttpClientModule, RouterTestingModule],
+      imports: [HttpClientModule, RouterTestingModule, FormsModule],
       providers: [AccountService]
     })
     .compileComponents();
