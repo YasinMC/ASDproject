@@ -12,10 +12,14 @@ import { StoreManageService } from './store-manage.service';
 export class StoreManageComponent implements OnInit {
   displayPopUp1: any = "none"
   displayPopUp2: any = "none"
+  displayPopUpAddC: any = "none"
+  displayPopUpDelC: any = "none"
   centres: any;
   token: any;
   status1: any;
   status2: any;
+  statusAC: any;
+  statusDC: any;
   test: any;
   centre = {
     stores: [{sName: "loading..."}]
@@ -26,6 +30,14 @@ export class StoreManageComponent implements OnInit {
     sName: new FormControl(''),
     sLocation: new FormControl(''),
     sNumber: new FormControl(''),
+  })
+
+  addCForm = new FormGroup({
+    cName: new FormControl('')
+  })
+
+  deleteCForm = new FormGroup({
+    cName: new FormControl('')
   })
 
   deleteForm = new FormGroup({
@@ -50,8 +62,18 @@ export class StoreManageComponent implements OnInit {
     this.getData();
   }
 
+  addCentre() {
+    this.displayPopUpAddC = "block";
+    this.getData();
+  }
+
   deleteStore() {
     this.displayPopUp2 = "block"
+    this.getData();
+  }
+
+  deleteCentre() {
+    this.displayPopUpDelC = "block";
     this.getData();
   }
 
@@ -59,10 +81,20 @@ export class StoreManageComponent implements OnInit {
     this.token = this.cookieService.get('access-token')
     this.storeService.addStore({store: this.addForm.value}, this.token).subscribe(data => this.status1 = data);
   }
+  
+  addCentreSubmit() {
+    this.token = this.cookieService.get('access-token')
+    this.storeService.addCentre({centre: this.addCForm.value}, this.token).subscribe(data => this.statusAC = data);
+  }
 
   deleteStoreSubmit() {
     this.token = this.cookieService.get('access-token')
     this.storeService.deleteStore({store: this.deleteForm.value}, this.token).subscribe(data => this.status2 = data);
+  }
+
+  deleteCentreSubmit() {
+    this.token = this.cookieService.get('access-token')
+    this.storeService.deleteCentre({centre: this.deleteCForm.value}, this.token).subscribe(data => this.statusDC = data);
   }
   
   changeCentre() {
@@ -77,6 +109,14 @@ export class StoreManageComponent implements OnInit {
 
   closeUpdateForm1() {
     this.displayPopUp1 = "none";
+  }
+
+  closeUpdateFormAddC() {
+    this.displayPopUpAddC = "none";
+  }
+
+  closeUpdateFormDelC() {
+    this.displayPopUpDelC = "none";
   }
 
   closeUpdateForm2() {
