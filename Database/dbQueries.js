@@ -296,24 +296,31 @@ async function addOffender(offender) {
   const user = await client.db("ASDdata").collection("OffendersTEST").insertOne(offender);
   console.log("new offender added: ", offender);
 }
-async function getOffender(offender) {
+async function getAllOffendersByID(offendersID) {
   //connect to db
   let client = getMongoClient();
   await connect(client);
 
   //query DB. add offender
-  const user = await client.db("ASDdata").collection("OffendersTEST").insertOne(offender);
-  console.log("new offender added: ", offender);
+  const offenders = await client.db("ASDdata").collection("Offenders").find({_id: { $in: offendersID}}).toArray();
+  // console.log("Found these Offenders: ", offenders);
+
+  return offenders;
+
 }
-async function getOffendersWithReportID(offences) {
+async function getOffendersWithReportID(offenceID) {
   //connect to db
-  console.log("Toast")
   let client = getMongoClient();
   await connect(client);
 
   //query DB. add offender
-  const offenderIDs = await client.db("ASDdata").collection("OffendersOffences").find(offences).toArray();
-  console.log("Offender IDs Found: ", offenderIDs);
+  const offences = await client.db("ASDdata").collection("OffendersOffences").find(offenceID).toArray();
+  const offenderIDs = []
+  offences.forEach(async function(offence){
+    offenderIDs.push(ObjectId(offence.offenderID))
+  })
+  const offenders = this.getAllOffendersByID(offenderIDs)
+  return offenders
 }
 // async function userIncidents(account){
 //   //connect to db
@@ -327,6 +334,6 @@ async function getOffendersWithReportID(offences) {
 
 
 module.exports = {
-    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, getOffendersWithReportID,addOffender
+    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, getOffendersWithReportID,addOffender, getAllOffendersByID
 };
 

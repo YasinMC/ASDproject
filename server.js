@@ -405,9 +405,7 @@ app.post('/getOffenders', async (req,res) => {
 
 
 app.post('/findOffendersWithReportID', async (req,res) => {
-
-  console.log("Yo we made it to the server yall");
-  console.log("Report ID: " + req.reportID);
+  // console.log("Report ID: " + req.reportID);
   offenders = await db.getOffendersWithReportID(req.reportID);
   res.send(offenders);
 })

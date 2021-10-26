@@ -13,8 +13,9 @@ export class OffenderListService {
   }
 
   getOffenderWithReportID(reportID) {
-    console.log("report ID: " + reportID);
+   //console.log("report ID: " + reportID);
     return this.http.post("http://localhost:3500/findOffendersWithReportID", {reportID: reportID});
 
   }
 }
+

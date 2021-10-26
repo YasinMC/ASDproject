@@ -31,8 +31,8 @@ Student number: 140574003
         <td>{{complaint.desiredOutcome}}</td>
         <td><img width="25px" height="25px" src="assets/images/edit.png" alt="edit" (click)="updateForm(complaint._id)"></td>
         <td><img width="25px" height="25px" src="assets/images/bin.png" alt="delete" (click)="deleteIncident(complaint._id)"></td>
-        <td><img width="25px" height="25px" src="assets/images/bin.png" alt="view offenders" (click)="viewOffenders(complaint._id)"></td>
-        <td>{{complaint.offendersID}}</td>
+        <td><img width="25px" height="25px" src="assets/images/bin.png" alt="view offenders" (click)="getOffendersByID(complaint._id)"></td>
+        <td>{{offenders.name}}</td>
     </tr>
   </table>
 

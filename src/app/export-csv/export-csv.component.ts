@@ -20,6 +20,7 @@ export class ExportCsvComponent implements OnInit {
   token: any;
   status: any;
   displayPopUp: any = "none";
+  offenders: any;
 
   //centre options
   centres: any;
@@ -39,7 +40,7 @@ export class ExportCsvComponent implements OnInit {
     desiredOutcome: new FormControl(),
   })
 
-  constructor(private api:ReportFormService, private complaintsAPI: ExportCsvService, private cookieService: CookieService, private authService: AuthService, private router:Router, private offenderListService: OffenderListService) { }
+  constructor(private api:ReportFormService, private complaintsAPI: ExportCsvService, private cookieService: CookieService, private authService: AuthService, private router:Router, private offenderService: OffenderListService) { }
 
   ngOnInit(): void {
     this.fetchCentres();
@@ -135,9 +136,8 @@ export class ExportCsvComponent implements OnInit {
     sessionStorage.setItem('alert', '');
     this.status = '';
   }
-  async viewOffenders(incidentId) {
-    console.log(this.offenderListService.getOffenderWithReportID(incidentId))
-
+  async getOffendersByID(incidentId) {
+    await this.offenderService.getOffenderWithReportID(incidentId).subscribe(data => {this.offenders = data; console.log(this.offenders);});
   }
 
 }
