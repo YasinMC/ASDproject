@@ -23,6 +23,7 @@ import { NewIdComponent } from './new-id/new-id.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { guestreportComponent } from './guestreport/guestreport.component';
 
 
 import { initializeApp } from "firebase/app";
@@ -57,7 +58,9 @@ const firebaseConfig = {
     NewIdComponent,
     HomePageComponent,
     HeaderComponent,
-    DashboardComponent
+    DashboardComponent,
+    guestreportComponent
+
   ],
   imports: [
     BrowserModule,
