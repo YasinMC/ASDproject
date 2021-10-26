@@ -1,7 +1,7 @@
 <app-header></app-header>
     <div class="testbox">
       <form [formGroup]="reportForm" (ngSubmit) = "onClickSubmit()">
-        
+
         <h1>Complaint Form</h1>
 
         <p>Please send us details about the incident you would like to report. Our Complaint Center will analyze your complaint and take the appropriate measures in order that the reported situation will not occur at any other time in the future.</p>
@@ -55,6 +55,12 @@
             </label>
             <small>By signing you declare that all information you have entered is truthful and accurate.</small>
           </div>
+        </div>
+
+        <div class="item">
+          <select name="offender" formControlName="offender">
+            <option *ngFor="let offender of offenders" value="{{offender._id}}">{{offender.name}}</option>
+          </select>
         </div>
 
         <div class="btn-block">

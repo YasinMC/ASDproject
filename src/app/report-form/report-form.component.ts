@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ReportFormService } from './report-form.service';
+import { OffenderListService } from '../offender-list/offender-list.service';
 
 @Component({
   selector: 'app-report-form',
@@ -19,8 +20,9 @@ export class ReportFormComponent implements OnInit {
   centreOption: any;
   status: any;
   alert: any;
+  offenders: any;
 
-  constructor(private cookieService: CookieService, private api:ReportFormService, private router:Router) { }
+  constructor(private cookieService: CookieService, private api:ReportFormService, private router:Router, private offenderService: OffenderListService) { }
   reportForm = new FormGroup({
     dateOfComp: new FormControl(this.currentdate),
     incidentType: new FormControl(),
@@ -29,10 +31,12 @@ export class ReportFormComponent implements OnInit {
     incidentDate: new FormControl(),
     compDetails: new FormControl(),
     desiredOutcome: new FormControl(),
+    offender: new FormControl(),
   })
   ngOnInit(): void {
     this.reportForm.get('storeLocation').disable();
     this.fetchCentres();
+    this.getAllOffenders();
   }
 
   onClickSubmit() {
@@ -75,5 +79,10 @@ export class ReportFormComponent implements OnInit {
   close() {
     this.alert = '';
     sessionStorage.setItem('alert', '');
+  }
+  async getAllOffenders() {
+    const token = "test"
+    console.log("toast3")
+    this.offenderService.getAllOffenders(token).subscribe(data => {this.offenders = data; console.log(this.offenders);});
   }
 }
