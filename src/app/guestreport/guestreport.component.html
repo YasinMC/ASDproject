@@ -1,0 +1,226 @@
+<app-header></app-header>
+
+<h1>Guest report</h1>
+
+<div id="wrapper">
+  <p>Make changes to a previous report?</p>
+  <label for="yes">
+    <input type="radio" name="choice" id="yes" (click)="openID()">
+    Yes</label>
+
+  <label for="no">
+    <input type="radio" name="choice" id="no" (click)="closeID()" checked>
+    No</label>
+
+  <div *ngIf="updateForm == true">
+    <hr />
+
+    <p>Please enter complaint ID</p>
+    <input type="text" id="complaintID" name="ComplaintID">
+  </div>
+  <hr />
+
+  <p>Please select what you would like to report</p>
+  <!-- can select the appropriate form -->
+  <label for="LostFound">
+    <input type="radio" name="choice" id="LostFound" (click)="LostFound()">
+    Lost and found</label>
+  <label for="Incident">
+    <input type="radio" name="choice" id="Incident" (click)="Incident()">
+    Incident report</label>
+  <label for="Inquiry">
+    <input type="radio" name="choice" id="Inquiry" (click)="Inquiry()">
+    General inquiry</label>
+</div>
+
+
+<!-- Option 1 lost and found form
+<div class="1" *ngIf="displayLostFound == true">
+  <div id="wrapper2">
+    <form [formGroup]="lostfoundreportForm" (ngSubmit)="onClickSubmit()">
+      <label for="lostorfound">Item has been
+        <select id="size_select">
+          <option value="option1">Lost</option>
+          <option value="option2">Found</option>
+        </select>
+      </label>
+      <br>
+      <label for="itemDescription">Item Description
+        <textarea name="itemDescription" rows="5" formControlName="description"></textarea>
+      </label>
+      <label for="email">Email
+        <input type="text" id="email" name="email">
+      </label>
+      <label>Date lost / found
+        <input type="date" name="incidentDate" required formControlName="incidentDate">
+        <i class="fas fa-calendar-alt"></i>
+      </label>
+      <small>By entering your email you are agreeing to receive updates on the enquiry.</small>
+      <div class="btn-block">
+        <button class="button" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+-->
+
+<!-- Option 2 incident report form-->
+<div class="2" *ngIf="displayIncident == true">
+  <div class="testbox">
+    <form [formGroup]="reportForm" (ngSubmit) = "onClickSubmit()">
+      
+      <h1>Guest Complaint Form</h1>
+
+      <p>Please send us details about the incident you would like to report. Our Complaint Center will analyze your complaint and take the appropriate measures in order that the reported situation will not occur at any other time in the future.</p>
+      <hr/>
+
+      <div class="item">
+        <label>Centre Name:
+          <select (change)="changeCentre()" name="centreLocation" formControlName="centreLocation">
+            <option  *ngFor="let centre of centres" value="{{centre.name}}">{{centre.name}}</option>
+          </select>
+        </label>
+
+        <label>Store Name
+          <select *ngIf="sCentre" name="storeLocation" formControlName="storeLocation">
+            <option *ngFor="let store of sCentre.stores" value="{{store.sName}}">{{store.sName}}</option>
+          </select>
+
+          <select *ngIf="!sCentre" name="storeLocation" formControlName="storeLocation">
+          </select>
+        </label>
+
+      </div>
+
+      <div class="item">
+        <label>Date of the reported incident
+          <input type="date" name="incidentDate" required formControlName="incidentDate">
+          <i class="fas fa-calendar-alt"></i>
+        </label>
+
+        <label>Incident type
+          <select name="incidentType" formControlName="incidentType">
+            <option value="harrasment">Harrassment</option>
+            <option value="Accident">Accident</option>
+            <option value="Fatality">Fatality</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="item complaint-details">
+        <div class="complaint-details-item">
+          <label for="compDetails">Complaint details
+            <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
+          </label>
+        </div>
+      </div>
+
+      <div class="item desired-outcome">
+        <div class="desired-outcome-item">
+          <label for="desiredOutcome">Desired outcome
+            <textarea name="desiredOutcome" rows="5" formControlName="desiredOutcome"></textarea>
+          </label>
+          <small>By signing you declare that all information you have entered is truthful and accurate.</small>
+        </div>
+      </div>
+
+      <div class="btn-block">
+        <button class="button" type="submit">SEND</button>
+      </div>
+    </form>
+  </div>
+
+
+<!--
+      <form [formGroup]="guestreportForm" (ngSubmit)="onClickSubmit()">
+        <div class="item">
+          <label>Centre Name:
+            <select (change)="changeCentre()" name="centreLocation" formControlName="centreLocation">
+              <option *ngFor="let centre of centres" value="{{centre.name}}">{{centre.name}}</option>
+            </select>
+          </label>
+
+          <label>Store Name
+            <select *ngIf="sCentre" name="storeLocation" formControlName="storeLocation">
+              <option *ngFor="let store of sCentre.stores" value="{{store.sName}}">{{store.sName}}</option>
+            </select>
+
+            <select *ngIf="!sCentre" name="storeLocation" formControlName="storeLocation">
+            </select>
+          </label>
+
+        </div>
+
+        <div class="item">
+          <label>Date of the reported incident
+            <input type="date" name="incidentDate" required formControlName="incidentDate">
+            <i class="fas fa-calendar-alt"></i>
+          </label>
+
+          <label>Incident type
+            <select name="incidentType" formControlName="incidentType">
+              <option value="harrasment">Harrassment</option>
+              <option value="Accident">Accident</option>
+              <option value="Fatality">Fatality</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="item complaint-details">
+          <div class="complaint-details-item">
+            <label for="compDetails">Complaint details
+              <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="item desired-outcome">
+          <div class="desired-outcome-item">
+            <label for="desiredOutcome">Desired outcome
+              <textarea name="desiredOutcome" rows="5" formControlName="desiredOutcome"></textarea>
+            </label>
+            <small>By signing you declare that all information you have entered is truthful and accurate.</small>
+          </div>
+        </div>
+
+        <div class="btn-block">
+          <button class="button" type="submit">SEND</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+-->
+
+<!-- Option 3 General inquiry
+
+<div class="3" *ngIf="displayInquiry == true">
+  <div id="option3" class="size_chart">
+    <div id="wrapper2">
+      <form [formGroup]="inquiryreportForm" (ngSubmit)="onClickSubmit()">
+        <label for="email">Email
+          <input type="text" id="email" name="email">
+        </label>
+
+        <br>
+        <label for="Inquiry">General inquiry
+          <textarea name="inquiry" rows="5" formControlName="inquiry"></textarea>
+        </label>
+        <small>By entering your email you are agreeing to receive updates on the enquiry.</small>
+        <div class="btn-block">
+          <button class="button" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+-->
+
+
+
+<!-- back button-->
+<div class="btnContainer">
+  <button style="width: 100px;" class="button" (click)="back()">back</button>
+</div>
+<div *ngIf="alert" class="redAlert">
+  <span class="closebtn" (click)="close()">&times;</span>
+  <b>error: </b> {{alert}}
+</div>

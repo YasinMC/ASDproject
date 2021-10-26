@@ -16,6 +16,8 @@ import { UserListComponent } from './user-list/user-list.component';
 import { CreateOffenderComponent } from './create-offender/create-offender.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { guestreportComponent } from './guestreport/guestreport.component';
+
 
 const routes: Routes = [
   { path: '' , component: HomePageComponent },
@@ -30,7 +32,8 @@ const routes: Routes = [
   { path: 'offenders', component: OffenderListComponent, canActivate: [RoleService]},
   { path: 'add-offender', component: CreateOffenderComponent, canActivate: [RoleService]},
   { path: 'userList', component: UserListComponent, canActivate: [RoleService]},
-  { path: 'newID', component: NewIdComponent, canActivate: [RoleService]}
+  { path: 'newID', component: NewIdComponent, canActivate: [RoleService]},
+  { path: 'guestreport', component: guestreportComponent,},
 ];
 
 @NgModule({
