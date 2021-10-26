@@ -355,6 +355,7 @@ app.post('/updateEmployee',verifyAdmin, async (req, res) => {
     res.send({status: "error updating employee"})
   }
 });
+
 app.post('/findAllUsers',verifyAdmin, async (req,res) => {
   //find all user
   try {
