@@ -76,4 +76,8 @@ export class ReportFormComponent implements OnInit {
     this.alert = '';
     sessionStorage.setItem('alert', '');
   }
+
+  addOffender(){
+    console.log("test") 
+  }
 }
