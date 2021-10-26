@@ -40,28 +40,29 @@
           </label>
         </div>
 
-        <div class="item complaint-details">
-          <div class="complaint-details-item">
-            <label for="compDetails">
-              <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
-            </label>
-          </div>
-        </div>
 
 
         <div class="item">
           <label>choose offender (optional)
-            <select name="incidentType" formControlName="incidentType">
-              <option value="placeholder">placeholder</option>
+            <select name="offenderId" formControlName="offenderId">
+              <option value="no offenders">no offenders</option>
+              <option *ngFor="let o of offenders" value="{{o._id}}">{{o.fName}}</option>
             </select>
           </label>
 
-          <label style="margin-top: -10px">add offender (optional)
-            <input type="submit" style="width: 100%; height: 35px;" (click)="addOffender()" value="fill offender details">
+          <label>add offender (optional)
+            <button type="button" style="width: 100%; height: 35px;" (click)="addOffender()">fill offender details</button>
           </label>
         </div>
 
 
+        <div class="item complaint-details">
+          <div class="complaint-details-item">
+            <label for="compDetails">complaint detail
+              <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
+            </label>
+          </div>
+        </div>
 
         <div class="item desired-outcome">
           <div class="desired-outcome-item">
@@ -86,4 +87,36 @@
        <b>error: </b> {{alert}}
     </div>
 
+    <div  [ngStyle]="{'display': displayPopUp1}" id="myModal" class="modal1">
+      <div class="modal-content">
+        <form [formGroup]="offenderForm" class='offenderForm' action="">
+          <span (click)="closeAddOffender()" class="close">&times;</span>
 
+    
+          <div class="container">
+            <h2 style="text-align: center;">Add person</h2>
+            <p style="text-align: center;">If any of the fields are unknown please leave it empty</p>
+            
+            <div class="item">
+              <label for="oName">First name<input type="text" name="oName" id="oName" formControlName="fName"></label>
+              <label for="oLName">Last name<input type="text" name="oLName" id="oLName" formControlName="lName"></label>
+            </div>
+
+            <div class="item">
+              <label for="">description <textarea name="" id="" cols="30" rows="5" formControlName="description"></textarea></label>
+            </div>
+
+            <div style="justify-content: center;" class="item">
+              <button type="button" (click)="submitOffender()">Submit</button>
+              
+            </div>
+            <div style="justify-content: center; text-align: center;"  class="item">
+              <p *ngIf="offender">{{offender.status}}</p>
+            </div>
+
+          </div>
+        </form>
+    </div>
+  </div>
+  
+<button (click)=" fetchOffenders()">test</button>
