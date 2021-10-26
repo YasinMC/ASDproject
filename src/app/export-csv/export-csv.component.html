@@ -18,6 +18,7 @@ Student number: 140574003
       <th>Desired outcome</th>
       <th>Edit</th>
       <th>Delete</th>
+      <th>Offenders</th>
     </tr>
     <tr *ngFor="let complaint of complaints">
         <td>{{complaint._id}}</td>
@@ -30,6 +31,8 @@ Student number: 140574003
         <td>{{complaint.desiredOutcome}}</td>
         <td><img width="25px" height="25px" src="assets/images/edit.png" alt="edit" (click)="updateForm(complaint._id)"></td>
         <td><img width="25px" height="25px" src="assets/images/bin.png" alt="delete" (click)="deleteIncident(complaint._id)"></td>
+        <td><img width="25px" height="25px" src="assets/images/bin.png" alt="view offenders" (click)="viewOffenders(complaint._id)"></td>
+        <td>{{complaint.offendersID}}</td>
     </tr>
   </table>
 
@@ -88,10 +91,10 @@ Student number: 140574003
                 <textarea name="compDetails" rows="5" formControlName="compDetails"></textarea>
               </div>
             </div>
-    
+
             <div class="item desired-outcome">
               <p>Desired Outcome</p>
-    
+
               <div class="desired-outcome-item">
                 <textarea name="desiredOutcome" rows="5" formControlName="desiredOutcome"></textarea>
                 <small>By signing you declare that all information you have entered is truthful and accurate.</small>
@@ -107,7 +110,7 @@ Student number: 140574003
                 {{status.status}}
               </div>
             </div>
-            
+
             <div *ngIf="status">
               <div *ngIf="status.status != 'updated incident successfully'" class="redAlert">
                 <span class="closebtn" (click)="close()">&times;</span>

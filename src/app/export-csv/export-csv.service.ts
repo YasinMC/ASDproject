@@ -23,10 +23,10 @@ export class ExportCsvService {
 
   updateIncident(token, id, update) {
     console.log("token = ", token, "| id = ", id, "| update = " , update)
-    return this.http.post("http://localhost:3500/updateComplaint", 
+    return this.http.post("http://localhost:3500/updateComplaint",
     {
-      token: token, 
-      id: id, 
+      token: token,
+      id: id,
       update: update
     })
   }

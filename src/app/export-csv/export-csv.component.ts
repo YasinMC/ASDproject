@@ -6,6 +6,7 @@ import { AuthService } from '../auth/auth.service';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { ReportFormService } from '../report-form/report-form.service';
 import { Router } from '@angular/router';
+import { OffenderListService } from '../offender-list/offender-list.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class ExportCsvComponent implements OnInit {
     desiredOutcome: new FormControl(),
   })
 
-  constructor(private api:ReportFormService, private complaintsAPI: ExportCsvService, private cookieService: CookieService, private authService: AuthService, private router:Router) { }
+  constructor(private api:ReportFormService, private complaintsAPI: ExportCsvService, private cookieService: CookieService, private authService: AuthService, private router:Router, private offenderListService: OffenderListService) { }
 
   ngOnInit(): void {
     this.fetchCentres();
@@ -59,17 +60,17 @@ export class ExportCsvComponent implements OnInit {
       this.complaintsAPI.showUserComplaints({token: this.token}).subscribe(data => this.complaints = data);
     }
   }
-  
+
   //display the pop up window
   updateForm(incidentId) {
-    this.token = this.cookieService.get('access-token') 
+    this.token = this.cookieService.get('access-token')
     this.complaintsAPI.fetchUserComplaint(incidentId, this.token).subscribe(data => {
       this.complaint = data;
 
       for(var property in this.complaint){
         //continue loop if property is equal to id, user or userId.
         if(['_id', 'user', 'userId'].includes(property)) continue;
-        
+
         //loop data over to the form
         this.reportForm.controls[property].setValue(this.complaint[property]);
         //console.log("property = ", property, "Value in property = ", this.reportForm.controls[property].value)
@@ -80,12 +81,12 @@ export class ExportCsvComponent implements OnInit {
   }
   async updateIncident() {
     this.clearStatus()
-    this.token = this.cookieService.get('access-token') 
+    this.token = this.cookieService.get('access-token')
     this.complaintsAPI.updateIncident(this.token, this.complaint._id, this.reportForm.value)
                       .subscribe(data => this.status = data);
-    
+
     this.admin = await this.authService.verifyAdmin();
-    
+
     if (this.admin) {
       this.complaintsAPI.showAllComplaints(this.token).subscribe(data => this.complaints = data);
     } else {
@@ -134,5 +135,9 @@ export class ExportCsvComponent implements OnInit {
     sessionStorage.setItem('alert', '');
     this.status = '';
   }
-  
+  async viewOffenders(incidentId) {
+    console.log(this.offenderListService.getOffenderWithReportID(incidentId))
+
+  }
+
 }

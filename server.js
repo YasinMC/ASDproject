@@ -83,7 +83,7 @@ app.post('/updateComplaint',verify, async (req, res) => {
         userId: req.body.user._id,
         _id: req.body.id
       }, req.body.update);
-  
+
     }
     console.log(update);
     if(update.modifiedCount == 1) res.send({status: "updated incident successfully"});
@@ -370,6 +370,9 @@ app.post('/findAllUsers',verifyAdmin, async (req,res) => {
 })
 app.post('/allComplaints',verifyAdmin, async (req,res) => {
   complaints = await db.allIncidents();
+  console.log(complaints.offendersId)
+  test = complaints.offendersId
+  console.log(test)
 
   res.send(complaints);
 })
@@ -393,6 +396,20 @@ app.post('/createOffender', async (req,res) => {
     console.log(error);
     res.send({status: `error creating offender`});
   }
+})
+app.post('/getOffenders', async (req,res) => {
+  offenders = await db.getOffenders(req.offenderID)
+
+  res.send(offenders);
+})
+
+
+app.post('/findOffendersWithReportID', async (req,res) => {
+
+  console.log("Yo we made it to the server yall");
+  console.log("Report ID: " + req.reportID);
+  offenders = await db.getOffendersWithReportID(req.reportID);
+  res.send(offenders);
 })
 
 //store admin end-points

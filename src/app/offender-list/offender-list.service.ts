@@ -11,4 +11,10 @@ export class OffenderListService {
   getAllOffenders(token) {
     return this.http.post("http://localhost:3500/findAllOffenders", {token: token});
   }
+
+  getOffenderWithReportID(reportID) {
+    console.log("report ID: " + reportID);
+    return this.http.post("http://localhost:3500/findOffendersWithReportID", {reportID: reportID});
+
+  }
 }
