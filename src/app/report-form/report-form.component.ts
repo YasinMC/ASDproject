@@ -19,6 +19,9 @@ export class ReportFormComponent implements OnInit {
   centreOption: any;
   status: any;
   alert: any;
+  displayPopUp1: any;
+  offender: any;
+  offenders: any;
 
   constructor(private cookieService: CookieService, private api:ReportFormService, private router:Router) { }
   reportForm = new FormGroup({
@@ -28,15 +31,30 @@ export class ReportFormComponent implements OnInit {
     storeLocation: new FormControl(),
     incidentDate: new FormControl(),
     compDetails: new FormControl(),
+    offenderId: new FormControl('no offenders'),
     desiredOutcome: new FormControl(),
   })
+
+  offenderForm = new FormGroup({
+    fName: new FormControl(),
+    lName: new FormControl(),
+    description: new FormControl()
+  })
+
   ngOnInit(): void {
     this.reportForm.get('storeLocation').disable();
     this.fetchCentres();
+    this.fetchOffenders();
   }
 
   onClickSubmit() {
-    const form = this.reportForm.value;
+    let form = this.reportForm.value;
+    
+    if(this.offender){
+      this.reportForm.controls['offenderId'].setValue(this.offender.offenderId)
+      form = this.reportForm.value;
+    }
+
     const token = this.cookieService.get('access-token');
     this.api.submitComplaint(token, form).subscribe(data => {
       this.status = data;
@@ -55,6 +73,14 @@ export class ReportFormComponent implements OnInit {
       this.centres = data;
       console.log(this.centres)
     });
+  }
+  fetchOffenders(){
+    const token = this.cookieService.get('access-token');
+    this.api.fetchOffenders(token).subscribe(data => {
+      this.offenders = data;
+      console.log(this.offenders);
+    });
+
   }
   changeCentre(){
     this.centreOption = this.reportForm.get("centreLocation").value;
@@ -78,6 +104,17 @@ export class ReportFormComponent implements OnInit {
   }
 
   addOffender(){
-    console.log("test") 
+    console.log("test");
+    this.displayPopUp1 = 'block';
+  }
+  submitOffender(){
+    let token = this.cookieService.get('access-token')
+    const formValue = this.offenderForm.value;
+
+    this.api.submitOffender(token, formValue).subscribe(data => this.offender = data);
+    console.log(formValue);
+  }
+  closeAddOffender(){
+    this.displayPopUp1 = "none";
   }
 }

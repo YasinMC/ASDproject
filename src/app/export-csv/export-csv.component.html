@@ -11,10 +11,12 @@ Student number: 140574003
     <tr>
       <th>complaint ID</th>
       <th>user ID</th>
+      <th>offender ID</th>
       <th>Date of incident</th>
       <th>Store location</th>
       <th>Store name</th>
       <th>Date of incident</th>
+      <th>incident type</th>
       <th>Complaint details</th>
       <th>Desired outcome</th>
       <th>Edit</th>
@@ -23,10 +25,12 @@ Student number: 140574003
     <tr *ngFor="let complaint of complaints">
         <td>{{complaint._id}}</td>
         <td>{{complaint.userId}}</td>
+        <td>{{complaint.offenderId}}</td>
         <td>{{complaint.dateOfComp}}</td>
         <td>{{complaint.centreLocation}}</td>
         <td>{{complaint.storeLocation}}</td>
         <td>{{complaint.incidentDate}}</td>
+        <td>{{complaint.incidentType}}</td>
         <td>{{complaint.compDetails}}</td>
         <td>{{complaint.desiredOutcome}}</td>
         <td><img width="25px" height="25px" src="assets/images/edit.png" alt="edit" (click)="updateForm(complaint._id)"></td>
