@@ -7,6 +7,17 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const db = require('./Database/dbQueries');
+const fs = require('fs');
+const https = require('https');
+
+var key = fs.readFileSync('selfsigned.key');
+var cert = fs.readFileSync('selfsigned.crt');
+
+
+var options = {
+  key: key,
+  cert: cert
+};
 
 app.use(cors());
 
@@ -16,6 +27,7 @@ app.use(bodyParser.json());
 app.get('/', async (req, res) => {
     res.send({message:'welcome to the server'});
 });
+
 
 //complaint end-points
 app.post('/api/submitComplaint',verify, async (req, res) => {
@@ -42,6 +54,7 @@ app.post('/api/submitComplaint',verify, async (req, res) => {
     });
   }
 });
+
 app.post('/fetchComplaints',verify, async (req, res) => {
   console.log(req.body);
   complaints = await db.userIncidents({userId: req.body.user._id});
@@ -355,7 +368,6 @@ app.post('/updateEmployee',verifyAdmin, async (req, res) => {
     res.send({status: "error updating employee"})
   }
 });
-
 app.post('/findAllUsers',verifyAdmin, async (req,res) => {
   //find all user
   try {
@@ -375,12 +387,13 @@ app.post('/findAllOffenders', async (req,res) => {
 
   res.send(offenders);
 })
-app.post('/createOffender', async (req,res) => {
+app.post('/createOffender',verify, async (req,res) => {
   //Ensure we have all fields we need
-  if(!req.body.name) return res.send({status: "name field empty"});
-  if(!req.body.reportID) return res.send({status: "reportID field empty"});
+  if(!req.body.fName || !req.body.lName) return res.send({status: "name field empty"});
   if(!req.body.description) return res.send({status: "description field empty"});
 
+  console.log(req.body);
+  /*
   //If all Fields are good attempt to add user to datebase
   try {
     //add user to mongoDB
@@ -389,7 +402,7 @@ app.post('/createOffender', async (req,res) => {
   } catch (error) {
     console.log(error);
     res.send({status: `error creating offender`});
-  }
+  }*/
 })
 
 //store admin end-points
@@ -500,7 +513,8 @@ app.post('/getAllUsers', verifyAdmin, async (req, res) => {
   res.send(users);
 })
 
+const server = https.createServer(options, app);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
