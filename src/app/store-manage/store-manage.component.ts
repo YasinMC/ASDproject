@@ -14,7 +14,8 @@ export class StoreManageComponent implements OnInit {
   displayPopUp2: any = "none"
   centres: any;
   token: any;
-  status: any;
+  status1: any;
+  status2: any;
   test: any;
   centre = {
     stores: [{sName: "loading..."}]
@@ -56,12 +57,12 @@ export class StoreManageComponent implements OnInit {
 
   addStoreSubmit() {
     this.token = this.cookieService.get('access-token')
-    this.storeService.addStore({store: this.addForm.value}, this.token).subscribe(data => this.status = data);
+    this.storeService.addStore({store: this.addForm.value}, this.token).subscribe(data => this.status1 = data);
   }
 
   deleteStoreSubmit() {
     this.token = this.cookieService.get('access-token')
-    this.storeService.deleteStore({store: this.deleteForm.value}, this.token).subscribe(data => this.status = data);
+    this.storeService.deleteStore({store: this.deleteForm.value}, this.token).subscribe(data => this.status2 = data);
   }
   
   changeCentre() {

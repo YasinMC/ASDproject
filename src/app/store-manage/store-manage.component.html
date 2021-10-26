@@ -12,7 +12,7 @@
 
             <span (click)="closeUpdateForm1()" class="close">&times;</span>
             <h1>Add store</h1>
-            <p style="text-align: center;">Fill out this form to add a new store</p><br>
+            <p style="text-align: center;">Fill out this form to add a new store:</p><br>
             <div class="item">
                 <p for="sCentre">Shopping centre:</p>
                 <select name="sCentre" formControlName="sCentre">
@@ -39,10 +39,10 @@
             </div>
  
             <div class="btn">
-                <button type="submit">SEND</button>
+                <button type="submit">Submit</button>
             </div>
 
-            <p class="statusMessage" *ngIf="status">{{status.status}}</p>
+            <p class="statusMessage" *ngIf="status1">{{status1.status}}</p>
         </form>
 
     </div>
@@ -71,10 +71,10 @@
         </div>
 
             <div class="btn">
-                <button type="submit">Send</button>
+                <button type="submit">Submit</button>
             </div>
             
-            <p class="statusMessage" *ngIf="status">{{status.status}}</p>
+            <p class="statusMessage" *ngIf="status2">{{status2.status}}</p>
         </form>
     </div>
 </div>
