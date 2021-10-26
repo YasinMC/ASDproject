@@ -1,6 +1,11 @@
 <app-header></app-header>
 <h1>Store Management</h1>
 <div class="buttonbox">
+    <button class="addBtn buttonStyle" (click)="addCentre()">Add Centre</button>
+    <button class="addBtn buttonStyle" (click)="deleteCentre()">Delete Centre</button>
+</div>
+
+<div class="buttonbox">
     <button class="addBtn buttonStyle" (click)="addStore()">Add Store</button>
     <button class="addBtn buttonStyle" (click)="deleteStore()">Delete Store</button>
 </div>
@@ -12,7 +17,7 @@
 
             <span (click)="closeUpdateForm1()" class="close">&times;</span>
             <h1>Add store</h1>
-            <p style="text-align: center;">Fill out this form to add a new store</p><br>
+            <p style="text-align: center;">Fill out this form to add a new store:</p><br>
             <div class="item">
                 <p for="sCentre">Shopping centre:</p>
                 <select name="sCentre" formControlName="sCentre">
@@ -39,10 +44,34 @@
             </div>
  
             <div class="btn">
-                <button type="submit">SEND</button>
+                <button type="submit">Submit</button>
             </div>
 
-            <p class="statusMessage" *ngIf="status">{{status.status}}</p>
+            <p class="statusMessage" *ngIf="status1">{{status1.status}}</p>
+        </form>
+
+    </div>
+</div>
+
+<div  [ngStyle]="{'display': displayPopUpAddC}" id="myModal" class="modal1">
+    <div class="modal-content">
+
+        <form [formGroup]="addCForm" (ngSubmit) = "addCentreSubmit()">
+
+            <span (click)="closeUpdateFormAddC()" class="close">&times;</span>
+            <h1>Add Centre</h1>
+            <p style="text-align: center;">Fill out this form to add a new shopping centre:</p><br>
+
+            <div class="item">
+                <p>Centre name:</p>
+                <input type="name" name="cName" formControlName="cName">
+            </div>
+ 
+            <div class="btn">
+                <button type="submit">Submit</button>
+            </div>
+
+            <p class="statusMessage" *ngIf="statusAC">{{statusAC.status}}</p>
         </form>
 
     </div>
@@ -52,7 +81,7 @@
     <div class="modal-content">
         <form [formGroup]="deleteForm" (ngSubmit) = "deleteStoreSubmit()">
             <span (click)="closeUpdateForm2()" class="close">&times;</span>
-
+            <h1>Delete store</h1>
             <div class="item">
             <p>Store Location:</p>
             <select name="sCentre" (change)="changeCentre()" formControlName="sCentre">
@@ -71,13 +100,37 @@
         </div>
 
             <div class="btn">
-                <button type="submit">Send</button>
+                <button type="submit">Submit</button>
             </div>
             
-            <p class="statusMessage" *ngIf="status">{{status.status}}</p>
+            <p class="statusMessage" *ngIf="status2">{{status2.status}}</p>
         </form>
     </div>
 </div>
+
+<div  [ngStyle]="{'display': displayPopUpDelC}" id="myModal" class="modal2">
+    <div class="modal-content">
+        <form [formGroup]="deleteCForm" (ngSubmit) = "deleteCentreSubmit()">
+            <span (click)="closeUpdateFormDelC()" class="close">&times;</span>
+            <h1>Delete Centre</h1>
+            <div class="item">
+            <p>Centre:</p>
+            <select name="sCentre" (change)="changeCentre()" formControlName="cName">
+                    <option *ngFor="let centre of centres" [value]="centre.name">
+                        {{centre.name}}
+                    </option>
+            </select><br>
+            </div>
+
+            <div class="btn">
+                <button type="submit">Submit</button>
+            </div>
+            
+            <p class="statusMessage" *ngIf="statusDC">{{statusDC.status}}</p>
+        </form>
+    </div>
+</div>
+
 <div class="btnContainer">
 	<button style="width: 100px;" class="button" (click)="back()">back</button>
 </div>
