@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--
+Author: Ziming Wang
+Student number: 13134402
+-->
+<app-header></app-header>
+
+<h1>Delete User</h1>
+<form [formGroup]="deleteForm" (ngSubmit)="register()">
+	<div class="container">
+		<label for="id"><b>Employee ID (provided)</b></label>
+		<input type="text" placeholder="Enter ID" name="eid" required  formControlName="eid">
+
+		<button class="addBtn" [disabled]="!deleteForm.valid" type="submit">ADD</button>
+	</div>
+	<p *ngIf="status">{{status.status}}</p>
+</form>
+
+<div class="btnContainer">
+	<button style="width: 100px;" class="button" (click)="back()">back</button>
+</div>

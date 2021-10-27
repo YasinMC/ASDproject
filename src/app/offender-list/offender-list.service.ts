@@ -11,4 +11,8 @@ export class OffenderListService {
   getAllOffenders(token) {
     return this.http.post("https://20.37.255.79:3500/findAllOffenders", {token: token});
   }
+
+  deleteOffender(offenderId, token){
+    return this.http.post('http://20.37.255.79:3500/deleteOffender', {offenderId: offenderId, token: token})
+  }
 }

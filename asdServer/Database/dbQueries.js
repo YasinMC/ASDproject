@@ -281,7 +281,7 @@ async function getAllOffenders() {
   await connect(client);
 
   //query DB. Fetch all offenders
-  let offenderList = await client.db('ASDdata').collection('OffendersTEST').find().toArray();
+  let offenderList = await client.db('ASDdata').collection('Offenders').find().toArray();
 
   //disconnect and return
   await disconnect(client);
@@ -293,13 +293,98 @@ async function addOffender(offender) {
   await connect(client);
 
   //query DB. add offender
-  const user = await client.db("ASDdata").collection("OffendersTEST").insertOne(offender);
+  const user = await client.db("ASDdata").collection("Offenders").insertOne(offender);
   console.log("new offender added: ", offender._id.toString());
   return offender._id.toString();
 }
 
+//Guest queries
+async function reportIncident(incident){
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+
+    //query DB. add incident report
+    const report = await client.db("ASDdata").collection("GuestComplaints").insertOne(incident);
+    console.log("new report added: ", report);
+}
+async function userIncidents(account){
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+    console.log("ACCOUNT NUMBER: ", account)
+    //query DB. add incident report
+    const fetchedIncidents = await client.db("ASDdata").collection("GuestComplaints").find(account).toArray();
+    return fetchedIncidents;
+}
+async function userIncident(account,CID){
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+    console.log("ACCOUNT NUMBER: ", account)
+    //query DB. add incident report
+    const fetchedIncident = await client.db("ASDdata").collection("GuestComplaints").findOne({_id: ObjectId(CID)});
+    return fetchedIncident;
+}
+async function updateIncident(incident, update){
+    var updateIncident;
+
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+
+    console.log(incident);
+    //query DB. add incident report
+
+    if(!incident.userId){
+        updateIncident = await client.db("ASDdata").collection("GuestComplaints").updateOne(
+            { _id: ObjectId(incident._id) }, { $set: update });
+    }else{
+        updateIncident = await client.db("ASDdata").collection("GuestComplaints").updateOne(
+            { _id: ObjectId(incident._id), userId: incident.userId },
+            { $set: update });
+    }
+
+    return updateIncident;
+}
+async function deleteIncident(incidentID, userID) {
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+
+    //query DB. add incident report
+    const fetchedIncidents = await client.db("ASDdata").collection("GuestComplaints").deleteOne({_id: ObjectId(incidentID), userId: userID});
+    return fetchedIncidents;
+}
+async function AdminDeleteIncident(incidentID) {
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+
+    //query DB. add incident report
+    const fetchedIncidents = await client.db("ASDdata").collection("GuestComplaints").deleteOne({_id: ObjectId(incidentID)});
+    return fetchedIncidents;
+}
+async function allIncidents() {
+    let client = getMongoClient();
+    await connect(client);
+
+    const fetchedIncidents = await client.db("ASDdata").collection("GuestComplaints").find().toArray();
+    return fetchedIncidents;
+}
+
+//Guest inquiry
+async function submitInquiry(inquiry){
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+
+    //query DB. add incident report
+    const inquiry = await client.db("ASDdata").collection("Inquiry").insertOne(inquiry);
+    console.log("new inquiry added: ", inquiry);
+}
 
 module.exports = {
-    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, addOffender
+    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, addOffender, submitInquiry
 };
 
