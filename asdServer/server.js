@@ -7,6 +7,17 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const db = require('./Database/dbQueries');
+const fs = require('fs');
+const https = require('https');
+
+var key = fs.readFileSync('selfsigned.key');
+var cert = fs.readFileSync('selfsigned.crt');
+
+
+var options = {
+  key: key,
+  cert: cert
+};
 
 app.use(cors());
 
@@ -16,6 +27,7 @@ app.use(bodyParser.json());
 app.get('/', async (req, res) => {
     res.send({message:'welcome to the server'});
 });
+
 
 //complaint end-points
 app.post('/api/submitComplaint',verify, async (req, res) => {
@@ -42,6 +54,7 @@ app.post('/api/submitComplaint',verify, async (req, res) => {
     });
   }
 });
+
 app.post('/fetchComplaints',verify, async (req, res) => {
   console.log(req.body);
   complaints = await db.userIncidents({userId: req.body.user._id});
@@ -79,7 +92,7 @@ app.post('/updateComplaint',verify, async (req, res) => {
         userId: req.body.user._id,
         _id: req.body.id
       }, req.body.update);
-
+  
     }
     console.log(update);
     if(update.modifiedCount == 1) res.send({status: "updated incident successfully"});
@@ -355,7 +368,6 @@ app.post('/updateEmployee',verifyAdmin, async (req, res) => {
     res.send({status: "error updating employee"})
   }
 });
-
 app.post('/findAllUsers',verifyAdmin, async (req,res) => {
   //find all user
   try {
@@ -370,33 +382,29 @@ app.post('/allComplaints',verifyAdmin, async (req,res) => {
 
   res.send(complaints);
 })
-app.post('/findAllOffenders', async (req,res) => {
+app.post('/findAllOffenders',verify, async (req,res) => {
   offenders = await db.getAllOffenders();
 
   res.send(offenders);
 })
-app.post('/createOffender', async (req,res) => {
+app.post('/createOffender',verify, async (req,res) => {
   //Ensure we have all fields we need
-  if(!req.body.name) return res.send({status: "name field empty"});
-  if(!req.body.reportID) return res.send({status: "reportID field empty"});
-  if(!req.body.description) return res.send({status: "description field empty"});
+  if(!req.body.offender.fName || !req.body.offender.lName) return res.send({status: "name field empty"});
+  if(!req.body.offender.description) return res.send({status: "description field empty"});
 
+  console.log(req.body);
+  
   //If all Fields are good attempt to add user to datebase
   try {
     //add user to mongoDB
-    db.addOffender(req.body);
-    res.send({status: `added offender`});
+    const OID = await db.addOffender(req.body.offender);
+    console.log(OID);
+    res.send({status: `added offender`, offenderId: OID});
   } catch (error) {
     console.log(error);
     res.send({status: `error creating offender`});
   }
 })
-
-app.post('/deleteOffender',verify, async (req, res) => {
-  offender = await db.AdminDeleteIncident(req.body.offenderId);
-  if(complaint.deletedCount == 1) res.send({status: "report deleted", return: complaint});
-  if(complaint.deletedCount != 1) res.send({status: "report not deleted. Please try again"})
-});
 
 //store admin end-points
 app.post('/allStores',verify, async (req,res) => {
@@ -408,8 +416,8 @@ app.post('/addStore',verifyAdmin, async (req,res) => {
   try {
     add = await db.addStore(req.body.store);
     console.log(add);
-    if(add.modifiedCount == 1) res.send({status: "added store successfully"});
-    if(add.modifiedCount != 1) res.send({status: "could not add store"});
+    if(add.modifiedCount == 1) res.send({status: "Added store successfully"});
+    if(add.modifiedCount != 1) res.send({status: "Could not add store"});
   } catch (error) {
     console.log(error);
     res.send({status: "error adding store"})
@@ -418,12 +426,35 @@ app.post('/addStore',verifyAdmin, async (req,res) => {
 
 app.post('/deleteStore',verifyAdmin, async (req,res) => {
   del = await db.deleteStore(req.body.store);
-  if(del.modifiedCount == 1) res.send({status: "store deleted", return: del});
-  if(del.modifiedCount != 1) res.send({status: "store not deleted. Please try again"})
+  if(del.modifiedCount == 1) res.send({status: "Store deleted", return: del});
+  if(del.modifiedCount != 1) res.send({status: "Store not deleted. Please try again"})
   }
 )
 
+app.post('/addCentre',verifyAdmin, async (req,res) => {
+  try {
+    add = await db.addCentre(req.body.centre);
+    console.log(add);
+    if (add.insertedId) res.send({status: "Added centre successfully"});
+    if (!add.insertedId) res.send({status: "Could not add centre"});
+  } catch (error) {
+    console.log(error);
+    res.send({status: "Could not add centre"});
+  }
+})
 
+app.post('/deleteCentre',verifyAdmin, async (req,res) => {
+  try {
+  del = await db.deleteCentre(req.body.centre);
+  console.log(del);
+  if(del.deletedCount == 1) res.send({status: "Centre deleted", return: del});
+  if(del.deletedCount != 1) res.send({status: "Centre not deleted. Please try again"})
+  } catch (error) {
+    console.log(error);
+      res.send("Centre not deleted!");
+  }
+  }
+)
 
 //verify end-points
 function verify(req,res,next) {
@@ -483,7 +514,100 @@ app.post('/getAllUsers', verifyAdmin, async (req, res) => {
   res.send(users);
 })
 
+const server = https.createServer(options, app);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+//Guest complaint
+app.post('/api/submitGuestComplaint',verify, async (req, res) => {
+
+  if(!req.body.guestcomplaint.centreLocation || !req.body.guestcomplaint.centreLocation || !req.body.guestcomplaint.incidentType || !req.body.guestcomplaint.dateOfComp || !req.body.guestcomplaint.compDetails || !req.body.guestcomplaint.desiredOutcome){
+    return res.send({status: "failed to report. Please fill all fields"})
+  }
+
+  try {
+    const userID = jwt.verify(req.body.token, process.env.ACCESS_SECRET);
+    guestcomplaint = req.body.guestcomplaint;
+    guestcomplaint.userId = userID._id;
+    delete guestcomplaint.token;
+    db.reportIncident(guestcomplaint);
+    console.log(guestcomplaint);
+    res.send({status: "incident reported"});
+  } catch (error) {
+    console.log(error);
+    res.send({
+      description: "access token invalid",
+      verification: false
+    });
+  }
+});
+app.post('/fetchGuestComplaints',verify, async (req, res) => {
+  console.log(req.body);
+  guestcomplaints = await db.userIncidents({userId: req.body.user._id});
+  console.log(guestcomplaints);
+  res.send(guestcomplaints);
+});
+app.post('/fetchGuestComplaint',verify, async (req, res) => {
+  try {
+    console.log(req.body);
+    guestcomplaint = await db.userIncident(req.body.user._id, req.body.guestcomplaintId);
+    console.log(guestcomplaint);
+    res.send(guestcomplaint);
+  } catch (error) {
+    console.log(error);
+    res.send({status: error})
+  }
+});
+app.post('/deleteGuestComplaint',verify, async (req, res) => {
+  const userID = jwt.verify(req.body.token, process.env.ACCESS_SECRET);
+  if (userID.admin) {
+    guestcomplaint = await db.AdminDeleteIncident(req.body.guestcomplaintId);
+  } else {
+    guestcomplaint = await db.deleteIncident(req.body.guestcomplaintId, req.body.user._id);
+  }
+  if(guestcomplaint.deletedCount == 1) res.send({status: "report deleted", return: guestcomplaint});
+  if(guestcomplaint.deletedCount != 1) res.send({status: "report not deleted. Please try again"})
+});
+app.post('/updateGuestComplaint',verify, async (req, res) => {
+  try {
+    if(req.body.user.admin){
+      console.log("yesyesytes" ,req.body.id);
+      update = await db.updateIncident({ _id: req.body.id }, req.body.update);
+    }else{
+      update = await db.updateIncident({
+        userId: req.body.user._id,
+        _id: req.body.id
+      }, req.body.update);
+  
+    }
+    console.log(update);
+    if(update.modifiedCount == 1) res.send({status: "updated incident successfully"});
+    if(update.modifiedCount != 1) res.send({status: "did not update"})
+  } catch (error) {
+    console.log(error);
+    res.send({status: "error updating incident"})
+  }
+});
+
+app.post('/api/submitInquiry',verify, async (req, res) => {
+
+  if(!req.body.inquiry.email || !req.body.inquiry.inquiry ){
+    return res.send({status: "failed to submit inquiry. Please fill all fields"})
+  }
+
+  try {
+    inquiry = req.body.inquiry;
+    delete inquiry.token;
+    db.submitInquiry(inquiry);
+    console.log(inquiry);
+    res.send({status: "inquiry submitted"});
+  } catch (error) {
+    console.log(error);
+    res.send({
+      description: "access token invalid",
+      verification: false
+    });
+  }
+});

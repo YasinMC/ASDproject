@@ -1,15 +1,17 @@
 <app-header></app-header>
 <table id="incidentTable" class="table">
   <tr>
-    <th>Name</th>
-    <th>Offence ID</th>
-    <th>Description</th>
+    <th>ID</th>
+    <th>First name</th>
+    <th>last name</th>
+    <th>description</th>
     <th>More Info</th>
     <!-- <th>Delete</th> -->
   </tr>
   <tr *ngFor="let offender of offenders">
-      <td>{{offender.name}}</td>
-      <td>{{offender.reportID}}</td>
+      <td>{{offender._id}}</td>
+      <td>{{offender.fName}}</td>
+      <td>{{offender.lName}}</td>
       <td>{{offender.description}}</td>
       <td><img width="50px" height="50px" src="assets/images/info.png" alt="edit" (click)="updateForm(offender.reportID)"></td>
       <!-- <td><img width="25px" height="25px" src="assets/images/bin.png" alt="delete" (click)="deleteOffender(offender._id)"></td> -->

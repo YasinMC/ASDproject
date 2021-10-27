@@ -32,6 +32,6 @@ export class ExportCsvService {
   }
 
   deleteUserComplaint(complaintId, token){
-    return this.http.post('http://20.37.255.79:3500/deleteComplaint', {complaintId: complaintId, token: token})
+    return this.http.post('https://20.37.255.79:3500/deleteComplaint', {complaintId: complaintId, token: token})
   }
 }
