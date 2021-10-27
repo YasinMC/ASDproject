@@ -214,6 +214,9 @@ html, body {
     text-align: right;
     font-weight: bold;
     }
+    button {
+      margin: 0px 40px;
+    }
     .item i {
     left: 61%;
     top: 25%;
