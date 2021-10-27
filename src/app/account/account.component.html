@@ -31,7 +31,7 @@
                 <input type="email" name="email" required  ngModel>
             </div>
 			<div style="text-align: center;">
-				<input style="margin-left: -20px;" [disabled]="!userForm.valid" type="submit" value="submit" >
+				<input style="margin-left: -20px;" type="submit" value="submit" >
 			</div>
 			<p *ngIf="status">{{status.status}}</p>
 			
@@ -49,7 +49,7 @@
                 <input type="password" name="password" required  ngModel>
             </div>
 			<div style="text-align: center;">
-				<input class=finalbtn style="margin-left: -20px;" [disabled]="!userForm.valid" type="submit" value="submit">
+				<input style="margin-left: -20px;" type="submit" value="submit">
 			</div>
 			<p *ngIf="status">{{status.status}}</p>
 		</form>
