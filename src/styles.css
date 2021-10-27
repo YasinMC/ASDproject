@@ -79,6 +79,23 @@ body{
 	left: 50% !important;
 	margin-left: -475px !important;
   }
+
+  .greyAlert {
+	border: 1px solid transparent !important;
+    border-radius: 0.25rem !important;
+	padding: 20px !important;
+	color: #808080 !important;
+    background-color: #d1e7dd !important;
+    border-color: #badbcc !important;
+    padding: 1rem 1rem !important;
+    margin-bottom: 1rem !important;
+	width: 50% !important;
+	margin: auto !important;
+	position: fixed !important;
+	top: 2% !important;
+	left: 50% !important;
+	margin-left: -475px !important;
+  }
   /* The close button */
   .closebtn {
 	margin-left: 15px;
