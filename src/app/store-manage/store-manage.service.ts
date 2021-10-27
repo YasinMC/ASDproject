@@ -34,7 +34,7 @@ export class StoreManageService {
 
   deleteCentre(data, token) {
     data.token = token;
-    return this.http.post("https://20.37.255.79:3500/deleteStore", data);
+    return this.http.post("https://20.37.255.79:3500/deleteCentre", data);
   }
 
   /*deleteCentre(data, token) {
