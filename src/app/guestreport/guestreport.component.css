@@ -11,7 +11,7 @@ html, body {
     }
     p.status {
         text-align: center;
-        color: red;
+        color: green;
         font-size: 20px;
     }
     h1 {
