@@ -13,6 +13,7 @@ export class DeleteUserComponent implements OnInit {
   status: any;
   alert: any;
   constructor(private api: DeleteUserService, private router:Router) { }
+  
   deleteForm = new FormGroup({
     eid: new FormControl('' , [Validators.pattern(/^[0-9]*$/)])
 })
