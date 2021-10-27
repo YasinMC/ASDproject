@@ -35,17 +35,23 @@ export class AccountComponent implements OnInit {
   }
 
   async getUserData() {
-    this.token = this.cookieService.get('access-token')
-    this.user = await this.authService.verifyUser();
+    this.api.findUser(this.token).subscribe(data =>{
+      this.user = data;
+      console.log(this.user);
+    } );
   }
 
   changeEmail(email){
     const token = this.cookieService.get("access-token");
-    this.api.changeEmail(token, email).subscribe(data => this.status = data);
+    this.api.changeEmail(token, email).subscribe(data =>{
+      this.status = data
+      this.getUserData()
+    }) ;
   }
   changePassword(password){
     const token = this.cookieService.get("access-token");
     this.api.changePassword(token, password).subscribe(data => this.status = data);
+    this.getUserData();
   }
   deleteAcc(){
     const token = this.cookieService.get("access-token");
