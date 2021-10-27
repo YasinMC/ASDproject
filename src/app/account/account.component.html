@@ -1,14 +1,14 @@
 <app-header></app-header>
-<div class = body>
+<div class="body">
 	<div class="center" style='text-align: center;'>
 		<H2>Account Settings</H2>
 		<table id=table>
 			<tr>
-				<td>current user email</td>
+				<td>{{user.email}}</td>
 				<td><button class=btn (click)="emailChangePopUp()">Change Email</button></td>
 			</tr>
 			<tr>
-				<td>********</td>
+				<td>{{user.password}}</td>
 				<td><button class=btn (click)="passChangePopUp()">Change Password</button></td>
 			</tr>
 		</table>

@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../auth/auth.service';
 import { AccountService } from './account.service';
 import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -15,6 +16,12 @@ import { FormsModule } from '@angular/forms';
 export class AccountComponent implements OnInit {
   user: any;
   users: any;
+  token: any;
+
+  userForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/)]),
+    password: new FormControl('', [Validators.required,Validators.minLength(8)]),
+  })
   
   constructor(private api:AccountService, private cookieService: CookieService, private router: Router, private authService: AuthService) { }
   status: any;
@@ -23,8 +30,14 @@ export class AccountComponent implements OnInit {
   displayPopUp3: any = "none";
   
   ngOnInit(): void {
+    this.token = this.cookieService.get('access-token') 
+    this.getUserData();
   }
 
+  async getUserData() {
+    this.token = this.cookieService.get('access-token')
+    this.user = await this.authService.verifyUser();
+  }
 
   changeEmail(email){
     const token = this.cookieService.get("access-token");

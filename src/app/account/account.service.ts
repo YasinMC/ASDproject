@@ -8,10 +8,13 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
+  findUser(token){
+    return this.http.post("http://20.37.255.79:3500/findUser", {token: token})
+  }
+
   changePassword(token, password){
     const update = {token: token, password}
     update.password = password.password;
-
     return this.http.post("http://20.37.255.79:3500/updateUserPassword", update)
   }
   changeEmail(token, email){
