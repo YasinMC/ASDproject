@@ -1,18 +1,20 @@
 <app-header></app-header>
-<H1>Account Settings</H1>
-<div style="text-align: center;">
-	<table class="center">
-		<tr >
-			<td>current user email</td>
-			<td><button (click)="emailChangePopUp()">change email</button></td>
-		</tr>
-		<tr>
-			<td>********</td>
-			<td><button (click)="passChangePopUp()">change password</button></td>
-		</tr>
-	</table>
+<div class="body">
+	<div class="center" style='text-align: center;'>
+		<H2>Account Settings</H2>
+		<table id=table>
+			<tr>
+				<td>{{user.email}}</td>
+				<td><button class=btn (click)="emailChangePopUp()">Change Email</button></td>
+			</tr>
+			<tr>
+				<td>********</td>
+				<td><button class=btn (click)="passChangePopUp()">Change Password</button></td>
+			</tr>
+		</table>
 
-	<button class="deleteBtn" (click)="deleteAccountPopUp()">delete account</button>
+		<button class="deleteBtn" (click)="deleteAccountPopUp()">Delete Account</button>
+	</div>
 </div>
 
 <div class="btnContainer">
