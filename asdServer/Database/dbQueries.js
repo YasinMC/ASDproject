@@ -281,7 +281,7 @@ async function getAllOffenders() {
   await connect(client);
 
   //query DB. Fetch all offenders
-  let offenderList = await client.db('ASDdata').collection('OffendersTEST').find().toArray();
+  let offenderList = await client.db('ASDdata').collection('Offenders').find().toArray();
 
   //disconnect and return
   await disconnect(client);
@@ -293,7 +293,7 @@ async function addOffender(offender) {
   await connect(client);
 
   //query DB. add offender
-  const user = await client.db("ASDdata").collection("OffendersTEST").insertOne(offender);
+  const user = await client.db("ASDdata").collection("Offenders").insertOne(offender);
   console.log("new offender added: ", offender._id.toString());
   return offender._id.toString();
 }

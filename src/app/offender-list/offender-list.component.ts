@@ -84,5 +84,10 @@ export class OffenderListComponent implements OnInit {
   back(){
     this.router.navigate(['dashboard']);
   }
+  deleteOffender(offenderId) {
+    console.log(offenderId)
+    this.token = this.cookieService.get('access-token')
+    this.offenderService.deleteOffender(offenderId, this.token).subscribe(data => this.status = data)
+  }
 
 }
