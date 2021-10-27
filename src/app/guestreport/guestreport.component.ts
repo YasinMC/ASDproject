@@ -19,63 +19,44 @@ export class guestreportComponent implements OnInit {
   centreOption: any;
   status: any;
   alert: any;
-  displayIncident = true;
+  email: any;
+  inquiry: any;
+  displayIncident = false;
   displayInquiry = false;
   displayLostFound = false;
   value = 2; 
   updateForm = false;
+  inquiryreportForm: FormGroup;
 
   
 
-  constructor(private cookieService: CookieService, private api:guestreportService, private router:Router) { }
-  guestreportForm = new FormGroup({
-    dateOfComp: new FormControl(this.currentdate),
-    incidentType: new FormControl(),
-    centreLocation: new FormControl(),
-    storeLocation: new FormControl(),
-    incidentDate: new FormControl(),
-    compDetails: new FormControl(),
-    desiredOutcome: new FormControl(),
-  })
+  constructor(private cookieService: CookieService, private api: guestreportService, private router: Router) { 
+  this.inquiryreportForm = new FormGroup({
+    email: new FormControl(),
+    inquiry: new FormControl(),
+  });
+}
+onClickSubmit() {
+  const form = this.inquiryreportForm.value;
+  const token = this.cookieService.get('access-token');
+  this.api.submitInquiry(token, form).subscribe(data => {
+    this.status = data;
+    console.log(this.status.status);
+    if(this.status.status != 'iquiry submitted'){
+      this.alert = this.status.status;
+    }else{
+      sessionStorage.setItem('alert', 'iquiry submitted successfully');
+      this.router.navigate(['csv']);
+    }
+  });
+
+}
+
   ngOnInit(): void {
-    this.guestreportForm.get('storeLocation').disable();
-    this.fetchCentres();
+    // this.guestreportForm.get('storeLocation').disable();
+    // this.fetchCentres();
   }
 
-  onClickSubmit() {
-    const form = this.guestreportForm.value;
-    const token = this.cookieService.get('access-token');
-    this.api.submitGuestComplaint(token, form).subscribe(data => {
-      this.status = data;
-      console.log(this.status.status);
-      if(this.status.status != 'incident reported'){
-        this.alert = this.status.status;
-      }else{
-        sessionStorage.setItem('alert', 'reported incident successfully');
-        this.router.navigate(['csv']);
-      }
-    });
-  }
-  fetchCentres(){
-    const token = this.cookieService.get('access-token');
-    this.api.fetchStores(token).subscribe(data => {
-      this.centres = data;
-      console.log(this.centres)
-    });
-  }
-  changeCentre(){
-    this.centreOption = this.guestreportForm.get("centreLocation").value;
-    this.fetchStores();
-  }
-  fetchStores(){
-    //fetch user option from form
-    var centreOption = this.centreOption;
-
-    //find all stores in centre
-    this.sCentre = this.centres.find((centre) => centre.name == centreOption)
-    console.log("scentre", this.sCentre);
-    this.guestreportForm.get('storeLocation').enable();
-  }
   back() {
     this.router.navigate(['dashboard'])
   }

@@ -373,7 +373,18 @@ async function allIncidents() {
     return fetchedIncidents;
 }
 
+//Guest inquiry
+async function submitInquiry(inquiry){
+    //connect to db
+    let client = getMongoClient();
+    await connect(client);
+
+    //query DB. add incident report
+    const inquiry = await client.db("ASDdata").collection("Inquiry").insertOne(inquiry);
+    console.log("new inquiry added: ", inquiry);
+}
+
 module.exports = {
-    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, addOffender
+    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, addOffender, submitInquiry
 };
 

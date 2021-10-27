@@ -11,7 +11,7 @@ export class guestreportService {
   fetchStores(token) {
     return this.http.post("https://20.37.255.79:3500/allStores", {token: token}) 
   }
-  submitGuestComplaint(token, complaint){
-    return this.http.post("https://20.37.255.79:3500/api/submitGuestComplaint", {token: token, complaint: complaint})
+  submitInquiry(token, inquiry){
+    return this.http.post("https://20.37.255.79:3500/api/submitInquiry", {token: token, inquiry: inquiry})
   }
 }

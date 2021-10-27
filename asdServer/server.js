@@ -590,3 +590,24 @@ app.post('/updateGuestComplaint',verify, async (req, res) => {
     res.send({status: "error updating incident"})
   }
 });
+
+app.post('/api/submitInquiry',verify, async (req, res) => {
+
+  if(!req.body.inquiry.email || !req.body.inquiry.inquiry ){
+    return res.send({status: "failed to submit inquiry. Please fill all fields"})
+  }
+
+  try {
+    inquiry = req.body.inquiry;
+    delete inquiry.token;
+    db.submitInquiry(inquiry);
+    console.log(inquiry);
+    res.send({status: "inquiry submitted"});
+  } catch (error) {
+    console.log(error);
+    res.send({
+      description: "access token invalid",
+      verification: false
+    });
+  }
+});
