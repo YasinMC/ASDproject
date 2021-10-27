@@ -1,13 +1,13 @@
 <app-header></app-header>
 <h1>Store Management</h1>
 <div class="buttonbox">
-    <button class="addBtn buttonStyle" (click)="addCentre()">Add Centre</button>
-    <button class="addBtn buttonStyle" (click)="deleteCentre()">Delete Centre</button>
+    <button class="button" (click)="addCentre()">Add Centre</button>
+    <button class="button" (click)="deleteCentre()">Delete Centre</button>
 </div>
 
 <div class="buttonbox">
-    <button class="addBtn buttonStyle" (click)="addStore()">Add Store</button>
-    <button class="addBtn buttonStyle" (click)="deleteStore()">Delete Store</button>
+    <button class="button" (click)="addStore()">Add Store</button>
+    <button class="button" (click)="deleteStore()">Delete Store</button>
 </div>
 
 <div  [ngStyle]="{'display': displayPopUp1}" id="myModal" class="modal1">
