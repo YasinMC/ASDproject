@@ -296,9 +296,18 @@ async function addOffender(offender) {
   const user = await client.db("ASDdata").collection("OffendersTEST").insertOne(offender);
   console.log("new offender added: ", offender);
 }
+async function deleteOffender(offenderId) {
+  //connect to db
+  let client = getMongoClient();
+  await connect(client);
+
+  //query DB. add incident report
+  const fetchedOffenders = await client.db("ASDdata").collection("Offenders").deleteOne({_id: ObjectId(offenderId)});
+  return fetchedOffenders;
+}
 
 
 module.exports = {
-    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, addOffender
+    getAllUsers: getAllUsers, addUser,addUserAdmin, findUser, reportIncident, userIncidents, deleteIncident, updateIncident, userIncident, addID , deleteID, updateID, findID, findAllID, deleteUser, updateUser, AdminDeleteIncident, allIncidents, getAllStores, addStore, findUserByEmail, deleteStore, getAllOffenders, addOffender, deleteOffender
 };
 
