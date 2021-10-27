@@ -24,7 +24,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { guestreportComponent } from './guestreport/guestreport.component';
-
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 import { initializeApp } from "firebase/app";
 import { AngularFireModule } from '@angular/fire/compat';
@@ -59,8 +59,8 @@ const firebaseConfig = {
     HomePageComponent,
     HeaderComponent,
     DashboardComponent,
-    guestreportComponent
-
+    guestreportComponent,
+    DeleteUserComponent
   ],
   imports: [
     BrowserModule,
